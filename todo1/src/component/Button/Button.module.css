@@ -1,0 +1,36 @@
+.floating-button,
+.delete-button {
+    font-family: 'Indie Flower', cursive;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
+    transition: .3s;
+}
+
+.floating-button:hover {
+    background: #2EE59D;
+    box-shadow: 0 10px 15px rgba(46, 229, 157, .4);
+    color: white;
+    transform: translateY(-3px);
+}
+
+.floating-button:active {
+    background: #8feec8;
+    box-shadow: 0 10px 15px rgba(20, 181, 202, 0.959);
+    color: white;
+    transform: translateY(-1px);
+}
+
+.delete-button:hover {
+    background: #e5492e;
+    box-shadow: 0 10px 15px rgba(229, 46, 46, 0.445);
+    color: white;
+    transform: translateY(-3px);
+}
+
+.delete-button:active {
+    background: #e07562;
+    box-shadow: 0 10px 15px rgba(158, 15, 4, 0.959);
+    color: white;
+    transform: translateY(-1px);
+}
