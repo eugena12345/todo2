@@ -1,5 +1,7 @@
 import React from "react";
 import style from './Task.module.css';
+import bnnStyle from '../../Button/Button.module.css';
+import deleteImg from '../../../image/trash.jpg';
 
 const Task = (props) => {
     console.log(props);
@@ -14,8 +16,8 @@ const Task = (props) => {
             <div className={style.rightSide}>
                 <div className='taskDate'>{props.task.taskDate}</div>
                 <div className={style.deleteTask}>
-                    <img className='delete-button ${style.border-img}'
-                        src="" alt="delete" width="40px" height="40px" />
+                    <img className={`${style['border-img']} ${bnnStyle['delete-button']}`}
+                        src={deleteImg} alt="delete" width="40px" height="40px" />
                 </div>
             </div>
         </div>

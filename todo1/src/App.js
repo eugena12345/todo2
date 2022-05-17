@@ -3,7 +3,7 @@ import InputTask from './component/InputTask/InputTask';
 import SortTask from './component/SortTask/SortTask';
 import TaskList from './component/Tasks/TaskList';
 import React, { useState } from "react";
-import Button from './component/Button/Button';
+
 
 
 function App() {
