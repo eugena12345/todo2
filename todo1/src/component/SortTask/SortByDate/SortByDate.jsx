@@ -1,4 +1,5 @@
 import React from "react";
+import style from './SortByDate.module.css';
 
 const SortByDate = (props) => {
     return (
