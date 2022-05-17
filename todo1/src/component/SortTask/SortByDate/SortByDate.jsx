@@ -6,8 +6,8 @@ const SortByDate = (props) => {
     return (
         <div className='sortDatePanel'>
             Sort by date
-            <Button buttonText={'⇧'} />
-            <Button buttonText={'⇩'} />
+            <Button>⇧</Button> 
+            <Button>⇩</Button> 
         </div>
     )
 }

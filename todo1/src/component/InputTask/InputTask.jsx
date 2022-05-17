@@ -14,7 +14,7 @@ const InputTask = (props) => {
         <div className={style.inputTask}>
             <input type="text" className={style.inputTask2} placeholder="I want to..." value={value}
                 onChange={event => setValue(event.target.value)} />
-            <Button buttonText={'Add Task'} />
+            <Button>Add Task</Button>
         </div>
     )
 }

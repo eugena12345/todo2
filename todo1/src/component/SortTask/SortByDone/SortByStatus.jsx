@@ -7,9 +7,9 @@ const optionSortByDone = ['All', 'Done', 'Undone']
 const SortByStatus = () => {
     return (
         <div className={style.sortPanel}>
-            <Button buttonText={'All'} />
-            <Button buttonText={'Done'} />
-            <Button buttonText={'Undone'} />
+            <Button>All</Button> 
+            <Button>Done</Button> 
+            <Button>Undone</Button> 
         </div>
     )
 }

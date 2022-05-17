@@ -12,8 +12,8 @@ function App() {
     { id: 1, taskText: 'Do something', taskDate: '10/04/2022' },
     { id: 2, taskText: 'Do more', taskDate: '10/04/2022' },
     { id: 3, taskText: 'Learn React', taskDate: '10/04/2022' },
-]
-)
+  ]
+  )
 
   return (
     <div className="App">
@@ -22,8 +22,7 @@ function App() {
         <InputTask />
         <SortTask />
       </div>
-      <TaskList tasks={tasks}/>
-      <Button buttonText={'any text'}/>
+      <TaskList tasks={tasks} />
     </div>
   );
 }
