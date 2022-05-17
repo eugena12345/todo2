@@ -1,12 +1,13 @@
 import React from "react";
+import Button from "../../Button/Button";
 import style from './SortByDate.module.css';
 
 const SortByDate = (props) => {
     return (
         <div className='sortDatePanel'>
             Sort by date
-            <button className="floating-button">⇧</button>
-            <button className="floating-button">⇩</button>
+            <Button buttonText={'⇧'} />
+            <Button buttonText={'⇩'} />
         </div>
     )
 }

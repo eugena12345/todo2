@@ -1,6 +1,7 @@
 import React from "react";
 import SortByDate from "./SortByDate/SortByDate";
-import SortByDone from "./SortByDone/SortByDone";
+import SortByStatus from "./SortByDone/SortByStatus";
+
 import style from './SortTask.module.css';
 
 const someFunction = () => {
@@ -10,7 +11,7 @@ const someFunction = () => {
 const SortTask = (props) => {
     return (
         <div className={style.controlPanel}>
-            <SortByDone />
+            <SortByStatus />
             <SortByDate />
         </div>
     )
