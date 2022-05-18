@@ -4,7 +4,6 @@ import bnnStyle from '../../Button/Button.module.css';
 import deleteImg from '../../../image/trash.jpg';
 
 const Task = (props) => {
-    console.log(props);
     return (
         <div className={style.task}>
             <div className={style.leftSide}>

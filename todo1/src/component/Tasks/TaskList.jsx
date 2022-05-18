@@ -11,7 +11,7 @@ const Tasks = (props) => {
 
     return (
         <div className={style.tasks}>
-            {props.tasks.map(task =>
+            {props.taskList.map(task =>
                 <Task task={task} key={task.id}/>
             )}
 

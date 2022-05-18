@@ -8,10 +8,10 @@ import React, { useState } from "react";
 
 function App() {
 
-  const [tasks, setTasks] = useState([
-    { id: 1, taskText: 'Do something', taskDate: '10/04/2022' },
-    { id: 2, taskText: 'Do more', taskDate: '10/04/2022' },
-    { id: 3, taskText: 'Learn React', taskDate: '10/04/2022' },
+  const [taskList, setTaskList] = useState([
+    { id: 1, taskText: 'Do something', taskDate: '10/04/2022', isTaskDone: false, },
+    { id: 2, taskText: 'Do more', taskDate: '10/04/2022', isTaskDone: false, },
+    { id: 3, taskText: 'Learn React', taskDate: '10/04/2022', isTaskDone: false, },
   ]
   )
 
@@ -19,10 +19,10 @@ function App() {
     <div className="App">
       <h1>ToDo</h1>
       <div className='topPanel'>
-        <InputTask />
+        <InputTask setTaskList={setTaskList} taskList={taskList}/>
         <SortTask />
       </div>
-      <TaskList tasks={tasks} />
+      <TaskList taskList={taskList} />
     </div>
   );
 }

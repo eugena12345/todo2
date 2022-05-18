@@ -3,7 +3,7 @@ import style from './Button.module.css';
 
 const Button = (props) => {
     return(
-<button className={style['floating-button']}>{props.children}</button>
+<button onClick={props.onClick} className={style['floating-button']}>{props.children}</button>
     )
 }
 
