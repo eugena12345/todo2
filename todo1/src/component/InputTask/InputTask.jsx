@@ -7,7 +7,7 @@ import style from './InputTask.module.css';
 
 
 const InputTask = (props) => {
-    
+
     const addNewTask = (event) => {
         if (event.code === 'Enter') {
             const newTask = {
@@ -28,7 +28,7 @@ const InputTask = (props) => {
         <div className={style.inputTask}>
             <input type="text" className={style.inputTask2} placeholder="I want to..." value={taskText}
                 onChange={event => setTaskText(event.target.value)} onKeyDown={addNewTask} />
-            {/* <Button onClick={addNewTask}>Add Task</Button> */}
+            {/* <Button onClickFunction={addNewTask}>Add Task</Button> */}
         </div>
     )
 }

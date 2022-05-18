@@ -2,8 +2,10 @@ import React from "react";
 import style from './Button.module.css';
 
 const Button = (props) => {
-    return(
-<button onClick={props.onClick} className={style['floating-button']}>{props.children}</button>
+
+    return (
+        <button className={style['floating-button']}>{props.children}
+        </button>
     )
 }
 
