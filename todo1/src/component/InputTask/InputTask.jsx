@@ -1,12 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import Button from "../Button/Button";
+import MyButton from "../Button/MyButton";
 import style from './InputTask.module.css';
 
-
-
-
 const InputTask = (props) => {
+    const [taskText, setTaskText] = useState('');
 
     const addNewTask = (event) => {
         if (event.code === 'Enter') {
@@ -23,12 +21,10 @@ const InputTask = (props) => {
         }
     }
 
-    const [taskText, setTaskText] = useState('');
     return (
         <div className={style.inputTask}>
             <input type="text" className={style.inputTask2} placeholder="I want to..." value={taskText}
                 onChange={event => setTaskText(event.target.value)} onKeyDown={addNewTask} />
-            {/* <Button onClickFunction={addNewTask}>Add Task</Button> */}
         </div>
     )
 }
