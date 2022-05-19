@@ -11,7 +11,7 @@ const SortByStatus = (props) => {
         if (typeOfSort === 'done') {
             props.setTaskList(taskList.filter(item => item.isCompleted === true));
         } else if (typeOfSort === 'undone') {
-            props.setTaskList(taskList.filter(item => item.isCompleted === true));
+            props.setTaskList(taskList.filter(item => item.isCompleted === false));
         } else if (typeOfSort === 'all') {
             props.setTaskList(taskList)}
         
