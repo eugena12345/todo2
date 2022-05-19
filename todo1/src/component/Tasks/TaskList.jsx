@@ -12,7 +12,7 @@ const Tasks = (props) => {
     return (
         <div className={style.tasks}>
             {props.taskList.map(task =>
-                <Task task={task} key={task.id}/>
+                <Task task={task} key={task.id} removeTask={props.removeTask} />
             )}
 
 

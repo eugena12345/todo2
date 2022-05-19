@@ -16,14 +16,18 @@ function App() {
   ]
   )
 
+  const removeTask = (taskForRemove) => {
+    setTaskList(taskList.filter(task => task.id !== taskForRemove.id))
+  }
+
   return (
     <div className="App">
       <h1>ToDo</h1>
       <div className='topPanel'>
-        <InputTask setTaskList={setTaskList} taskList={taskList}/>
+        <InputTask setTaskList={setTaskList} taskList={taskList} />
         <SortTask />
       </div>
-      <TaskList taskList={taskList} />
+      <TaskList taskList={taskList} removeTask={removeTask} />
     </div>
   );
 }

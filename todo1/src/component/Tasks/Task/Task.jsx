@@ -16,7 +16,8 @@ const Task = (props) => {
                 <div className='taskDate'>{props.task.taskDate}</div>
                 <div className={style.deleteTask}>
                     <img className={`${style['border-img']} ${bnnStyle['delete-button']}`}
-                        src={deleteImg} alt="delete" width="40px" height="40px" />
+                        src={deleteImg} alt="delete" width="40px" height="40px" 
+                        onClick={() => props.removeTask(props.task)}/>
                 </div>
             </div>
         </div>
