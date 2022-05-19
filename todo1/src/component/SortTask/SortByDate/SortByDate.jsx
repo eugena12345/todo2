@@ -3,11 +3,20 @@ import MyButton from "../../Button/MyButton";
 import style from './SortByDate.module.css';
 
 const SortByDate = (props) => {
+
+    const sortByDate = (taskList, order) => {
+        if (order === 'first') {
+            props.setTaskList([...taskList].sort((a, b) => a.miliTaskDate - b.miliTaskDate));
+        } else if (order === 'last') {
+            props.setTaskList([...taskList].sort((a, b) => b.miliTaskDate - a.miliTaskDate));
+        }
+    }
+
     return (
         <div className='sortDatePanel'>
             Sort by date
-            <MyButton>⇧</MyButton> 
-            <MyButton>⇩</MyButton> 
+            <MyButton onClick={() => sortByDate(props.taskList, 'last')}>⇧</MyButton>
+            <MyButton onClick={() => sortByDate(props.taskList, 'first')}>⇩</MyButton>
         </div>
     )
 }
