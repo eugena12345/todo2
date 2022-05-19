@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import style from './Task.module.css';
 import bnnStyle from '../../Button/Button.module.css';
 import deleteImg from '../../../image/trash.jpg';
 
 const Task = (props) => {
+    const [check, setCheck] = useState({isCompleted: 'false'})
+    
     return (
         <div className={style.task}>
             <div className={style.leftSide}>

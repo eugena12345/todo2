@@ -9,9 +9,9 @@ const SortByStatus = (props) => {
 
     const sortByStatus = (taskList, typeOfSort) => {
         if (typeOfSort === 'done') {
-            props.setTaskList(taskList.filter(item => item.isTaskDone === true));
+            props.setTaskList(taskList.filter(item => item.isCompleted === true));
         } else if (typeOfSort === 'undone') {
-            props.setTaskList(taskList.filter(item => item.isTaskDone === true));
+            props.setTaskList(taskList.filter(item => item.isCompleted === true));
         } else if (typeOfSort === 'all') {
             props.setTaskList(taskList)}
         

@@ -20,7 +20,7 @@ const InputTask = (props) => {
                 taskText: event.target.value,
                 taskDate: getDate(),
                 miliTaskDate: Date.now(),
-                isTaskDone: false,
+                isCompleted: false,
             };
             props.setTaskList([...props.taskList, newTask])
             setTaskText('');
