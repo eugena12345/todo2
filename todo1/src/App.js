@@ -27,7 +27,12 @@ function App() {
         <InputTask setTaskList={setTaskList} taskList={taskList} />
         <SortTask />
       </div>
-      <TaskList taskList={taskList} removeTask={removeTask} />
+      {taskList.length
+        ? <TaskList taskList={taskList} removeTask={removeTask} />
+        : <div><h1>no tasks</h1>
+        <img src='https://img.freepik.com/free-vector/coffee-quotes-svg-design-vector_22345-1171.jpg?w=740' width={450} /></div>
+                }
+
     </div>
   );
 }
