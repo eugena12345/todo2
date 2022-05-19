@@ -9,10 +9,10 @@ import React, { useState } from "react";
 function App() {
 
   const [taskList, setTaskList] = useState([
-    { id: 1, taskText: 'Do something', taskDate: '10/04/2020', isTaskDone: false, },
-    { id: 2, taskText: 'Do more', taskDate: '10/04/2022', isTaskDone: false, },
-    { id: 3, taskText: 'Learn React', taskDate: '10/04/2021', isTaskDone: false, },
-    { id: 3, taskText: 'Learn React', taskDate: '20/04/2022', isTaskDone: false, },
+    { id: 1, taskText: 'Do something', taskDate: '10/4/2020', miliTaskDate: 1587292371000, isTaskDone: false, },
+    { id: 2, taskText: 'Do more', taskDate: '10/4/2022', miliTaskDate: 1650364371000, isTaskDone: false, },
+    { id: 3, taskText: 'Learn React', taskDate: '10/4/2021', miliTaskDate: 1618828371000, isTaskDone: false, },
+    { id: 4, taskText: 'Learn React', taskDate: '20/4/2022', miliTaskDate: 1650450771000, isTaskDone: false, },
   ]
   )
 

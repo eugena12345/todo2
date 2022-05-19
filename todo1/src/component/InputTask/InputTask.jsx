@@ -6,12 +6,20 @@ import style from './InputTask.module.css';
 const InputTask = (props) => {
     const [taskText, setTaskText] = useState('');
 
+    const getDate = (date = new Date()) => {
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        return (`${day}/${month}/${year}`);
+    }
+
     const addNewTask = (event) => {
         if (event.code === 'Enter') {
             const newTask = {
                 id: Date.now(),
                 taskText: event.target.value,
-                taskDate: '10/04/2022',
+                taskDate: getDate(),
+                miliTaskDate: Date.now(),
                 isTaskDone: false,
             };
             props.setTaskList([...props.taskList, newTask])
