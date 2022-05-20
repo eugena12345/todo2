@@ -6,9 +6,9 @@ const SortByDate = (props) => {
 
     const sortByDate = (taskList, order) => {
         if (order === 'first') {
-            props.setTaskList([...taskList].sort((a, b) => a.miliTaskDate - b.miliTaskDate));
+            props.setFiltredTodoList([...taskList].sort((a, b) => a.miliTaskDate - b.miliTaskDate));
         } else if (order === 'last') {
-            props.setTaskList([...taskList].sort((a, b) => b.miliTaskDate - a.miliTaskDate));
+            props.setFiltredTodoList([...taskList].sort((a, b) => b.miliTaskDate - a.miliTaskDate));
         }
     }
 

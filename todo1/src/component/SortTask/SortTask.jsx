@@ -7,8 +7,8 @@ import style from './SortTask.module.css';
 const SortTask = (props) => {
     return (
         <div className={style.controlPanel}>
-            <SortByStatus taskList={props.taskList} setTaskList={props.setTaskList} />
-            <SortByDate taskList={props.taskList} setTaskList={props.setTaskList}/>
+            <SortByStatus taskList={props.taskList} setFiltredTodoList={props.setFiltredTodoList} />
+            <SortByDate taskList={props.taskList} setFiltredTodoList={props.setFiltredTodoList}/>
         </div>
     )
 };

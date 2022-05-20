@@ -9,11 +9,11 @@ const SortByStatus = (props) => {
 
     const sortByStatus = (taskList, typeOfSort) => {
         if (typeOfSort === 'done') {
-            props.setTaskList(taskList.filter(item => item.isCompleted === true));
+            props.setFiltredTodoList(taskList.filter(item => item.isCompleted === true));
         } else if (typeOfSort === 'undone') {
-            props.setTaskList(taskList.filter(item => item.isCompleted === false));
+            props.setFiltredTodoList(taskList.filter(item => item.isCompleted === false));
         } else if (typeOfSort === 'all') {
-            props.setTaskList(taskList)}
+            props.setFiltredTodoList(taskList)}
         
         //return console.log(copyTaskList);
     }
