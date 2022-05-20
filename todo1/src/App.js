@@ -8,9 +8,9 @@ function App() {
 
   const [taskList, setTaskList] = useState([
     { id: 1, taskText: 'Do something', taskDate: '10/4/2020', miliTaskDate: 1587292371000, isCompleted: false, },
-    { id: 2, taskText: 'Do more', taskDate: '10/4/2022', miliTaskDate: 1650364371000, isCompleted: true, },
+    { id: 2, taskText: 'Do more', taskDate: '10/4/2022', miliTaskDate: 1650364371000, isCompleted: false, },
     { id: 3, taskText: 'Learn React', taskDate: '10/4/2021', miliTaskDate: 1618828371000, isCompleted: false, },
-    { id: 4, taskText: 'Learn React', taskDate: '20/4/2022', miliTaskDate: 1650450771000, isCompleted: true, },
+    { id: 4, taskText: 'Learn React', taskDate: '20/4/2022', miliTaskDate: 1650450771000, isCompleted: false, },
   ])
 
   useEffect(() => {
@@ -32,7 +32,7 @@ function App() {
       </div>
       {taskList.length
         ? <TaskList filtredTodoList={filtredTodoList} removeTask={removeTask}
-        setTaskList={setTaskList} taskList={taskList} />
+        setTaskList={setTaskList} taskList={taskList} setFiltredTodoList={setFiltredTodoList} />
         : <div><h1>no tasks</h1>
           <img
             src='https://img.freepik.com/free-vector/coffee-quotes-svg-design-vector_22345-1171.jpg?w=740'
