@@ -11,26 +11,28 @@ const InputTask = (props) => {
         const month = date.getMonth() + 1;
         const day = date.getDate();
         return (`${day}/${month}/${year}`);
-    }
-
-    const addNewTask = (event) => {
+      }
+    
+      const addNewTask = (event) => {
         if (event.code === 'Enter') {
-            if (event.target.value) {
-                const newTask = {
-                    id: Date.now(),
-                    taskText: event.target.value,
-                    taskDate: getDate(),
-                    miliTaskDate: Date.now(),
-                    isCompleted: false,
-                };
-                props.setTaskList([...props.taskList, newTask])
-                setTaskText('');
-            }
-
-        } else if (event.code === 'Escape') {
+          if (event.target.value) {
+            const newTask = {
+              id: Date.now(),
+              taskText: event.target.value,
+              taskDate: getDate(),
+              miliTaskDate: Date.now(),
+              isCompleted: false,
+            };
+            props.setTaskList([...props.taskList, newTask])
             setTaskText('');
+          }
+    
+        } else if (event.code === 'Escape') {
+          setTaskText('');
         }
-    }
+      }
+
+    
 
     return (
         <div className={style.inputTask}>

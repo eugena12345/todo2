@@ -14,14 +14,18 @@ const TaskList = (props) => {
             }
             return item
         })
-        console.log(newTaskList);
-        props.setFiltredTodoList(newTaskList);
+        //---было 
+        //props.setFiltredTodoList(newTaskList);
+        // внесла изменение, чтобы изменялся оригинальный массив задач
+        props.setTaskList(newTaskList);
     }
 
     return (
         <div className={style.tasks}>
             {props.filtredTodoList.map(task =>
-                <Task task={task} key={task.id} removeTask={props.removeTask} changeCompleted={changeCompleted} />
+                <Task task={task} key={task.id} removeTask={props.removeTask} 
+                setTaskList={props.setTaskList} taskList={props.taskList}
+                changeCompleted={changeCompleted} />
             )}
 
 

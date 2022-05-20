@@ -21,18 +21,20 @@ function App() {
     setTaskList(taskList.filter(task => task.id !== taskForRemove.id))
   }
 
+  
+
   const [filtredTodoList, setFiltredTodoList] = useState(taskList);
 
   return (
     <div className="App">
       <h1>ToDo</h1>
       <div className='topPanel'>
-        <InputTask setTaskList={setTaskList} taskList={taskList} />
+        <InputTask setTaskList={setTaskList} taskList={taskList}  />
         <SortTask taskList={taskList} setFiltredTodoList={setFiltredTodoList} />
       </div>
       {taskList.length
         ? <TaskList filtredTodoList={filtredTodoList} removeTask={removeTask}
-        setTaskList={setTaskList} taskList={taskList} setFiltredTodoList={setFiltredTodoList} />
+          setTaskList={setTaskList} taskList={taskList} setFiltredTodoList={setFiltredTodoList} />
         : <div><h1>no tasks</h1>
           <img
             src='https://img.freepik.com/free-vector/coffee-quotes-svg-design-vector_22345-1171.jpg?w=740'
