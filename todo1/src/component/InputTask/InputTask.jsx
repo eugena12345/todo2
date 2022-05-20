@@ -15,15 +15,18 @@ const InputTask = (props) => {
 
     const addNewTask = (event) => {
         if (event.code === 'Enter') {
-            const newTask = {
-                id: Date.now(),
-                taskText: event.target.value,
-                taskDate: getDate(),
-                miliTaskDate: Date.now(),
-                isCompleted: false,
-            };
-            props.setTaskList([...props.taskList, newTask])
-            setTaskText('');
+            if (event.target.value) {
+                const newTask = {
+                    id: Date.now(),
+                    taskText: event.target.value,
+                    taskDate: getDate(),
+                    miliTaskDate: Date.now(),
+                    isCompleted: false,
+                };
+                props.setTaskList([...props.taskList, newTask])
+                setTaskText('');
+            }
+
         } else if (event.code === 'Escape') {
             setTaskText('');
         }
