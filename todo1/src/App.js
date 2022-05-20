@@ -31,7 +31,8 @@ function App() {
         <SortTask taskList={taskList} setFiltredTodoList={setFiltredTodoList} />
       </div>
       {taskList.length
-        ? <TaskList filtredTodoList={filtredTodoList} removeTask={removeTask} />
+        ? <TaskList filtredTodoList={filtredTodoList} removeTask={removeTask}
+        setTaskList={setTaskList} taskList={taskList} />
         : <div><h1>no tasks</h1>
           <img
             src='https://img.freepik.com/free-vector/coffee-quotes-svg-design-vector_22345-1171.jpg?w=740'

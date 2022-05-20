@@ -4,13 +4,15 @@ import bnnStyle from '../../Button/Button.module.css';
 import deleteImg from '../../../image/trash.jpg';
 
 const Task = (props) => {
-    const [check, setCheck] = useState({isCompleted: 'false'})
+   // const [check, setCheck] = useState({isCompleted: 'false'})
+
+   
     
     return (
         <div className={style.task}>
             <div className={style.leftSide}>
                 <div className={style.check}>
-                    <input type='checkbox' />
+                    <input type='checkbox' onChange={() => props.changeCompleted(props.task)} />
                 </div>
                 <div className={style.taskTexst}>{props.task.taskText}</div>
             </div>
