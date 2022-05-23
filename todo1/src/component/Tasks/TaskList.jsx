@@ -22,7 +22,7 @@ const TaskList = (props) => {
 
     return (
         <div className={style.tasks}>
-            {props.filtredTodoList.map(task =>
+            {props.currentTasks.map(task =>
                 <Task task={task} key={task.id} removeTask={props.removeTask} 
                 setTaskList={props.setTaskList} taskList={props.taskList}
                 changeCompleted={changeCompleted} />

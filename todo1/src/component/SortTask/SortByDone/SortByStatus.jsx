@@ -14,7 +14,7 @@ const SortByStatus = (props) => {
             props.setFiltredTodoList(taskList.filter(item => item.isCompleted === false));
         } else if (typeOfSort === 'all') {
             props.setFiltredTodoList(taskList)}
-        
+            props.setCurretnPage(1);
         //return console.log(copyTaskList);
     }
 
