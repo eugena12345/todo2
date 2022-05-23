@@ -18,17 +18,11 @@ const InputForChangeTask = (props) => {
           return item
         })
         props.setTaskList(newTaskList);
-
-
-
-        console.log(event.target.value);
         props.setEditMode(!props.editMode)
       }
     } else if (event.code === 'Escape') {
       props.setEditMode(!props.editMode);
     }
-
-
   }
 
   return (
