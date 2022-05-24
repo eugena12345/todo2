@@ -1,28 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import MyButton from "../../Button/MyButton";
 import style from './SortByStatus.module.css';
 
-const optionSortByDone = ['All', 'Done', 'Undone']
-
-
 const SortByStatus = (props) => {
+    const [order, setOrder] = useState('all');
 
     const sortByStatus = (taskList, typeOfSort) => {
         if (typeOfSort === 'done') {
+            setOrder('done');
             props.setFiltredTodoList(taskList.filter(item => item.isCompleted === true));
         } else if (typeOfSort === 'undone') {
+            setOrder('undone');
             props.setFiltredTodoList(taskList.filter(item => item.isCompleted === false));
         } else if (typeOfSort === 'all') {
-            props.setFiltredTodoList(taskList)}
-            props.setCurretnPage(1);
-        //return console.log(copyTaskList);
+            setOrder('all');
+            props.setFiltredTodoList(taskList)
+        }
+        props.setCurretnPage(1);
     }
 
     return (
         <div className={style.sortPanel}>
-            <MyButton onClick={() => sortByStatus(props.taskList, 'all')}>All</MyButton>
-            <MyButton onClick={() => sortByStatus(props.taskList, 'done')}>Done</MyButton>
-            <MyButton onClick={() => sortByStatus(props.taskList, 'undone')}>Undone</MyButton>
+            <MyButton onClick={() => sortByStatus(props.taskList, 'all')}
+                button={'all'} currentbutton={order}
+            >All</MyButton>
+            <MyButton onClick={() => sortByStatus(props.taskList, 'done')}
+                button={'done'} currentbutton={order}
+            >Done</MyButton>
+            <MyButton onClick={() => sortByStatus(props.taskList, 'undone')}
+                button={'undone'} currentbutton={order}
+            >Undone</MyButton>
         </div>
     )
 }

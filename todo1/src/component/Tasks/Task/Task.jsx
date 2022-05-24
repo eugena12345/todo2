@@ -8,17 +8,14 @@ const Task = (props) => {
 
     const isChecked = (isCompleted) => isCompleted === true ? 'checked' : false;
     const [editMode, setEditMode] = useState(false);
-    //console.log(editMode);
-    
 
-    
     return (
         <div >
             {editMode
                 ? <InputForChangeTask setEditMode={setEditMode} editMode={editMode}
-                taskText={props.task.taskText} setTaskList={props.setTaskList}
-                taskList={props.taskList}
-                taskID={props.task.id}
+                    taskText={props.task.taskText} setTaskList={props.setTaskList}
+                    taskList={props.taskList}
+                    taskID={props.task.id}
                 />
                 : <div className={style.task}>
                     <div className={style.leftSide} onDoubleClick={() => setEditMode(!editMode)}>

@@ -35,3 +35,8 @@
     color: white;
     transform: translateY(-1px);
 }
+
+.currentPage {
+    background-color: #2ee59ca4;
+    box-shadow: 0 10px 15px rgba(46, 229, 157, .4);
+}

@@ -26,18 +26,15 @@ function App() {
     setTaskList(taskList.filter(task => task.id !== taskForRemove.id))
   }
 
-    const [filtredTodoList, setFiltredTodoList] = useState(taskList);
-
-    const [currentPage, setCurretnPage] = useState(1)
-
-    const numberOfTaskOnPage = 5;
-    const lastTaskIndex = currentPage * numberOfTaskOnPage;
-    const firstTaskIndex = lastTaskIndex - numberOfTaskOnPage;
-    const currentTasks = filtredTodoList.slice(firstTaskIndex, lastTaskIndex );
-
-    const paginate = (pageNumber) => {
-      setCurretnPage(pageNumber)
-    }
+  const [filtredTodoList, setFiltredTodoList] = useState(taskList);
+  const [currentPage, setCurretnPage] = useState(1)
+  const numberOfTaskOnPage = 5;
+  const lastTaskIndex = currentPage * numberOfTaskOnPage;
+  const firstTaskIndex = lastTaskIndex - numberOfTaskOnPage;
+  const currentTasks = filtredTodoList.slice(firstTaskIndex, lastTaskIndex);
+  const paginate = (pageNumber) => {
+    setCurretnPage(pageNumber)
+  }
 
   return (
     <div className="App">
@@ -45,7 +42,7 @@ function App() {
       <div className='topPanel'>
         <InputTask setTaskList={setTaskList} taskList={taskList} />
         <SortTask taskList={taskList} setFiltredTodoList={setFiltredTodoList}
-        setCurretnPage={setCurretnPage} />
+          setCurretnPage={setCurretnPage} />
       </div>
       {taskList.length
         ? <TaskList filtredTodoList={filtredTodoList} removeTask={removeTask}
@@ -58,9 +55,8 @@ function App() {
       }
       {filtredTodoList.length > numberOfTaskOnPage &&
         <Pagination length={filtredTodoList.length} numberOfTaskOnPage={numberOfTaskOnPage}
-        paginate={paginate} />
+          paginate={paginate} currentPage={currentPage} />
       }
-
     </div>
   );
 }

@@ -1,13 +1,16 @@
-import React from "react";
+import React  from "react";
 import MyButton from "../../Button/MyButton";
 import style from './SortByDate.module.css';
+import { useState } from "react";
 
 const SortByDate = (props) => {
-
+const [order, setOrder] = useState('');
     const sortByDate = (taskList, order) => {
         if (order === 'first') {
+            setOrder('first');
             props.setFiltredTodoList([...taskList].sort((a, b) => a.miliTaskDate - b.miliTaskDate));
         } else if (order === 'last') {
+            setOrder('last');
             props.setFiltredTodoList([...taskList].sort((a, b) => b.miliTaskDate - a.miliTaskDate));
         }
     }
@@ -15,8 +18,12 @@ const SortByDate = (props) => {
     return (
         <div className='sortDatePanel'>
             Sort by date
-            <MyButton onClick={() => sortByDate(props.taskList, 'last')}>⇧</MyButton>
-            <MyButton onClick={() => sortByDate(props.taskList, 'first')}>⇩</MyButton>
+            <MyButton onClick={() => sortByDate(props.taskList, 'last')}
+                button={'last'} currentbutton={order}
+            >⇧</MyButton>
+            <MyButton onClick={() => sortByDate(props.taskList, 'first')}
+            button={'first'} currentbutton={order}
+            >⇩</MyButton>
         </div>
     )
 }
