@@ -4,14 +4,14 @@ import style from './SortByDate.module.css';
 import { useState } from "react";
 
 const SortByDate = (props) => {
-const [order, setOrder] = useState('');
+const [order, setOrder] = useState('first');
     const sortByDate = (taskList, order) => {
         if (order === 'first') {
             setOrder('first');
-            props.setFiltredTodoList([...taskList].sort((a, b) => a.miliTaskDate - b.miliTaskDate));
+            props.setTaskList([...taskList].sort((a, b) => a.miliTaskDate - b.miliTaskDate));
         } else if (order === 'last') {
             setOrder('last');
-            props.setFiltredTodoList([...taskList].sort((a, b) => b.miliTaskDate - a.miliTaskDate));
+            props.setTaskList([...taskList].sort((a, b) => b.miliTaskDate - a.miliTaskDate));
         }
     }
 

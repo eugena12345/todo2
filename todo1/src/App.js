@@ -41,8 +41,8 @@ function App() {
       <h1>ToDo</h1>
       <div className='topPanel'>
         <InputTask setTaskList={setTaskList} taskList={taskList} />
-        <SortTask taskList={taskList} setFiltredTodoList={setFiltredTodoList}
-          setCurretnPage={setCurretnPage} />
+        <SortTask taskList={taskList} filtredTodoList={filtredTodoList} setTaskList={setTaskList} 
+        setFiltredTodoList={setFiltredTodoList} setCurretnPage={setCurretnPage} />
       </div>
       {taskList.length
         ? <TaskList filtredTodoList={filtredTodoList} removeTask={removeTask}
