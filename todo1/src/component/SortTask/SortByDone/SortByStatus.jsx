@@ -9,17 +9,13 @@ const SortByStatus = (props) => {
         if (typeOfSort === 'done') {
             setOrder('done');
             props.setFiltredTodoList(taskList.filter(item => item.isCompleted === true));
-            // props.setSortedByStatus(true);
         } else if (typeOfSort === 'undone') {
             setOrder('undone');
             props.setFiltredTodoList(taskList.filter(item => item.isCompleted === false));
-            // props.setSortedByStatus(true);
         } else if (typeOfSort === 'all') {
             setOrder('all');
             props.setFiltredTodoList(taskList)
-            // props.setSortedByStatus(false);
         }
-        
         props.setCurretnPage(1);
     }
 
