@@ -14,27 +14,40 @@ const InputTask = (props) => {
   }
   const addNewTask = (event) => {
     if (event.code === 'Enter') {
-      if (event.target.value) {
-        const newTask = {
-          id: Date.now(),
-          taskText: event.target.value,
-          taskDate: getDate(),
-          miliTaskDate: Date.now(),
-          isCompleted: false,
-        };
-        props.setTaskList([...props.taskList, newTask])
-        setTaskText('');
-      }
+
+      const newTask = {
+        id: Date.now(),
+        taskText: taskText,
+        taskDate: getDate(),
+        miliTaskDate: Date.now(),
+        isCompleted: false,
+      };
+      props.setTaskList([...props.taskList, newTask])
+      setTaskText('');
 
     } else if (event.code === 'Escape') {
       setTaskText('');
     }
   }
 
+  const addNewTaskOnButtonClick = () => {
+    const newTask = {
+      id: Date.now(),
+      taskText: taskText,
+      taskDate: getDate(),
+      miliTaskDate: Date.now(),
+      isCompleted: false,
+    };
+    props.setTaskList([...props.taskList, newTask])
+    setTaskText('');
+
+  }
+
   return (
     <div className={style.inputTask}>
       <input type="text" className={style.inputTask2} placeholder="I want to..." value={taskText}
         onChange={event => setTaskText(event.target.value)} onKeyDown={addNewTask} />
+      <MyButton onClick={addNewTaskOnButtonClick}>add</MyButton>
     </div>
   )
 }

@@ -17,6 +17,8 @@ function App() {
     { id: 7, taskText: 'qwe', taskDate: '10/4/2021', miliTaskDate: 1618828371000, isCompleted: false, },
     { id: 8, taskText: 'zxc', taskDate: '20/4/2022', miliTaskDate: 1650450771000, isCompleted: false, },
   ])
+  const [filtredTodoList, setFiltredTodoList] = useState(taskList);
+  const [currentPage, setCurretnPage] = useState(1)
 
   useEffect(() => {
     setFiltredTodoList(taskList)
@@ -26,8 +28,6 @@ function App() {
     setTaskList(taskList.filter(task => task.id !== taskForRemove.id))
   }
 
-  const [filtredTodoList, setFiltredTodoList] = useState(taskList);
-  const [currentPage, setCurretnPage] = useState(1)
   const numberOfTaskOnPage = 5;
   const lastTaskIndex = currentPage * numberOfTaskOnPage;
   const firstTaskIndex = lastTaskIndex - numberOfTaskOnPage;
@@ -41,8 +41,8 @@ function App() {
       <h1>ToDo</h1>
       <div className='topPanel'>
         <InputTask setTaskList={setTaskList} taskList={taskList} />
-        <SortTask taskList={taskList} filtredTodoList={filtredTodoList} setTaskList={setTaskList} 
-        setFiltredTodoList={setFiltredTodoList} setCurretnPage={setCurretnPage} />
+        <SortTask taskList={taskList} filtredTodoList={filtredTodoList} setTaskList={setTaskList}
+          setFiltredTodoList={setFiltredTodoList} setCurretnPage={setCurretnPage} />
       </div>
       {taskList.length
         ? <TaskList filtredTodoList={filtredTodoList} removeTask={removeTask}
