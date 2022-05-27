@@ -14,7 +14,26 @@ const InputTask = (props) => {
   }
   const addNewTask = (event) => {
     if (event.code === 'Enter') {
+      if (taskText) {
+        const newTask = {
+          id: Date.now(),
+          taskText: taskText,
+          taskDate: getDate(),
+          miliTaskDate: Date.now(),
+          isCompleted: false,
+        };
+        props.setTaskList([...props.taskList, newTask])
+        setTaskText('');
+      }
 
+
+    } else if (event.code === 'Escape') {
+      setTaskText('');
+    }
+  }
+
+  const addNewTaskOnButtonClick = () => {
+    if (taskText) {
       const newTask = {
         id: Date.now(),
         taskText: taskText,
@@ -24,23 +43,7 @@ const InputTask = (props) => {
       };
       props.setTaskList([...props.taskList, newTask])
       setTaskText('');
-
-    } else if (event.code === 'Escape') {
-      setTaskText('');
     }
-  }
-
-  const addNewTaskOnButtonClick = () => {
-    const newTask = {
-      id: Date.now(),
-      taskText: taskText,
-      taskDate: getDate(),
-      miliTaskDate: Date.now(),
-      isCompleted: false,
-    };
-    props.setTaskList([...props.taskList, newTask])
-    setTaskText('');
-
   }
 
   return (
