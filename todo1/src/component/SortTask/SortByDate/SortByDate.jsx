@@ -5,24 +5,23 @@ import { useState } from "react";
 
 const SortByDate = (props) => {
 const [order, setOrder] = useState('first');
-    const sortByDate = (taskList, order) => {
-        if (order === 'first') {
-            setOrder('first');
-            props.setTaskList([...taskList].sort((a, b) => a.miliTaskDate - b.miliTaskDate));
-        } else if (order === 'last') {
-            setOrder('last');
-            props.setTaskList([...taskList].sort((a, b) => b.miliTaskDate - a.miliTaskDate));
-        }
+    
+    const orderLast = () => {
+        props.setTypeOfSorted({ ...props.typeOfSorted, typeSortedByDate: 'last' });
+        setOrder('last');
+    }
+
+    const orderFirst = () => {
+        props.setTypeOfSorted({ ...props.typeOfSorted, typeSortedByDate: 'first' });
+        setOrder('first');
     }
 
     return (
         <div className='sortDatePanel'>
             Sort by date
-            <MyButton onClick={() => sortByDate(props.taskList, 'last')}
-                button={'last'} currentbutton={order}
+            <MyButton onClick={orderLast} button={'last'} currentbutton={order}
             >⇧</MyButton>
-            <MyButton onClick={() => sortByDate(props.taskList, 'first')}
-            button={'first'} currentbutton={order}
+            <MyButton onClick={orderFirst} button={'first'} currentbutton={order}
             >⇩</MyButton>
         </div>
     )

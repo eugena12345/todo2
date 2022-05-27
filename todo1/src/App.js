@@ -18,11 +18,16 @@ function App() {
     { id: 8, taskText: 'zxc', taskDate: '20/4/2022', miliTaskDate: 1650450771000, isCompleted: false, },
   ])
   const [filtredTodoList, setFiltredTodoList] = useState(taskList);
-  const [currentPage, setCurretnPage] = useState(1)
+  const [currentPage, setCurretnPage] = useState(1);
+  const [typeOfSorted, setTypeOfSorted] = useState({ typeSortedByDate: 'first', typeSortedByStatus: 'all' });
 
   useEffect(() => {
     setFiltredTodoList(taskList)
   }, [taskList])
+
+  useEffect(() => {
+    sort(typeOfSorted)
+  }, [typeOfSorted])
 
   const removeTask = (taskForRemove) => {
     setTaskList(taskList.filter(task => task.id !== taskForRemove.id))
@@ -36,13 +41,44 @@ function App() {
     setCurretnPage(pageNumber)
   }
 
+  const sort = (typeOfSorted) => {
+    switch (typeOfSorted.typeSortedByStatus) {
+      case 'all': {
+        if (typeOfSorted.typeSortedByDate === 'last') {
+          setTaskList([...taskList].sort((a, b) => b.miliTaskDate - a.miliTaskDate));
+        } else if (typeOfSorted.typeSortedByDate === 'first') {
+          setTaskList([...taskList].sort((a, b) => a.miliTaskDate - b.miliTaskDate));
+        }
+        return
+      }
+      case 'done': {
+        if (typeOfSorted.typeSortedByDate === 'last') {
+          setFiltredTodoList(taskList.filter(item => item.isCompleted === true).sort((a, b) => b.miliTaskDate - a.miliTaskDate));
+        } else if (typeOfSorted.typeSortedByDate === 'first') {
+          setFiltredTodoList(taskList.filter(item => item.isCompleted === true).sort((a, b) => a.miliTaskDate - b.miliTaskDate));
+        }
+        return
+      }
+      case 'undone': {
+        if (typeOfSorted.typeSortedByDate === 'last') {
+          setFiltredTodoList(taskList.filter(item => item.isCompleted === false).sort((a, b) => b.miliTaskDate - a.miliTaskDate));
+        } else if (typeOfSorted.typeSortedByDate === 'first') {
+          setFiltredTodoList(taskList.filter(item => item.isCompleted === false).sort((a, b) => a.miliTaskDate - b.miliTaskDate));
+        }
+        return
+      }
+    }
+
+  }
+
   return (
     <div className="App">
       <h1>ToDo</h1>
       <div className='topPanel'>
         <InputTask setTaskList={setTaskList} taskList={taskList} />
         <SortTask taskList={taskList} filtredTodoList={filtredTodoList} setTaskList={setTaskList}
-          setFiltredTodoList={setFiltredTodoList} setCurretnPage={setCurretnPage} />
+          setFiltredTodoList={setFiltredTodoList} setCurretnPage={setCurretnPage}
+          sort={sort} setTypeOfSorted={setTypeOfSorted} typeOfSorted={typeOfSorted} />
       </div>
       {taskList.length
         ? <TaskList filtredTodoList={filtredTodoList} removeTask={removeTask}
