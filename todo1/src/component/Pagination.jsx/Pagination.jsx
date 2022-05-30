@@ -2,7 +2,7 @@ import React from "react";
 import MyButton from "../Button/MyButton";
 import style from './Pagination.module.css';
 
-const Pagination = (props) => {
+const Pagination = (props) => {///
     let pagesArray = [];
     let pages = 1;
     if (props.length) {

@@ -11,9 +11,11 @@ const InputForChangeTask = (props) => {
       if (event.target.value) {
 
 
-        const newTaskList = [...props.taskList].filter((item) => {
+        const newTaskList = [...props.taskList].filter((item) => {//
           if (item.id === props.taskID) {
-            item.taskText = event.target.value;
+            // const newItem = {...item}
+            // newItem.textValue = event.target.value;
+            // return newItem
           }
           return item
         })
@@ -21,7 +23,7 @@ const InputForChangeTask = (props) => {
         props.setEditMode(!props.editMode)
       }
     } else if (event.code === 'Escape') {
-      props.setEditMode(!props.editMode);
+      props.setEditMode(!props.editMode);//
     }
   }
 

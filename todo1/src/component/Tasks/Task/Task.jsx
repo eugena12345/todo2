@@ -6,8 +6,8 @@ import InputForChangeTask from "../../InputForChangeTask/InputForChangeTask";
 
 const Task = (props) => {
 
-    const isChecked = (isCompleted) => isCompleted === true ? 'checked' : false;
-    const [editMode, setEditMode] = useState(false);
+    const isChecked = (isCompleted) => isCompleted === true ? 'checked' : false;///
+    const [editMode, setEditMode] = useState(false);///
 
     return (
         <div >
@@ -18,9 +18,9 @@ const Task = (props) => {
                     taskID={props.task.id}
                 />
                 : <div className={style.task}>
-                    <div className={style.leftSide} onDoubleClick={() => setEditMode(!editMode)}>
+                    <div className={style.leftSide} onDoubleClick={() => setEditMode(!editMode)}>///
                         <div className={style.check}>
-                            <input type='checkbox' checked={isChecked(props.task.isCompleted)}
+                            <input type='checkbox' checked={isChecked(props.task.isCompleted)}///
                                 onChange={() => props.changeCompleted(props.task)}
                             />
                         </div>

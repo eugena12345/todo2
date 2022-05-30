@@ -19,7 +19,7 @@ function App() {
   ])
   const [filtredTodoList, setFiltredTodoList] = useState(taskList);
   const [currentPage, setCurretnPage] = useState(1);
-  const [typeOfSorted, setTypeOfSorted] = useState({ typeSortedByDate: 'first', typeSortedByStatus: 'all' });
+  const [typeOfSorted, setTypeOfSorted] = useState({ typeSortedByDate: 'first', typeSortedByStatus: 'all' }); //check
 
   useEffect(() => {
     setFiltredTodoList(taskList)
@@ -27,7 +27,7 @@ function App() {
 
   useEffect(() => {
     sort(typeOfSorted)
-  }, [typeOfSorted])
+  }, [typeOfSorted, taskList])
 
   const removeTask = (taskForRemove) => {
     setTaskList(taskList.filter(task => task.id !== taskForRemove.id))
@@ -38,10 +38,10 @@ function App() {
   const firstTaskIndex = lastTaskIndex - numberOfTaskOnPage;
   const currentTasks = filtredTodoList.slice(firstTaskIndex, lastTaskIndex);
   const paginate = (pageNumber) => {
-    setCurretnPage(pageNumber)
+    setCurretnPage(pageNumber)//
   }
 
-  const sort = (typeOfSorted) => {
+  const sort = (typeOfSorted) => {//
     switch (typeOfSorted.typeSortedByStatus) {
       case 'all': {
         if (typeOfSorted.typeSortedByDate === 'last') {
@@ -76,9 +76,15 @@ function App() {
       <h1>ToDo</h1>
       <div className='topPanel'>
         <InputTask setTaskList={setTaskList} taskList={taskList} />
-        <SortTask taskList={taskList} filtredTodoList={filtredTodoList} setTaskList={setTaskList}
-          setFiltredTodoList={setFiltredTodoList} setCurretnPage={setCurretnPage}
-          sort={sort} setTypeOfSorted={setTypeOfSorted} typeOfSorted={typeOfSorted} />
+        <SortTask 
+        taskList={taskList} 
+        filtredTodoList={filtredTodoList} 
+        setTaskList={setTaskList}
+          setFiltredTodoList={setFiltredTodoList} 
+          setCurretnPage={setCurretnPage}
+          sort={sort} 
+          setTypeOfSorted={setTypeOfSorted} 
+          typeOfSorted={typeOfSorted} />
       </div>
       {taskList.length
         ? <TaskList filtredTodoList={filtredTodoList} removeTask={removeTask}
@@ -87,7 +93,7 @@ function App() {
         : <div><h1>no tasks</h1>
           <img
             src='https://img.freepik.com/free-vector/coffee-quotes-svg-design-vector_22345-1171.jpg?w=740'
-            width={450} /></div>
+            width={450} /></div>///
       }
       {filtredTodoList.length > numberOfTaskOnPage &&
         <Pagination length={filtredTodoList.length} numberOfTaskOnPage={numberOfTaskOnPage}

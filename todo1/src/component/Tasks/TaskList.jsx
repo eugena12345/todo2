@@ -8,7 +8,7 @@ import style from './TaskList.module.css';
 const TaskList = (props) => {
 
     const changeCompleted = (task) => {
-        const newTaskList = [...props.taskList].filter((item) => {
+        const newTaskList = [...props.taskList].filter((item) => {//
             if (item.id === task.id) {
                 item.isCompleted = !item.isCompleted;
             }

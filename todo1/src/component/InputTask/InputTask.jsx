@@ -17,7 +17,7 @@ const InputTask = (props) => {
       if (taskText) {
         const newTask = {
           id: Date.now(),
-          taskText: taskText,
+          taskText,
           taskDate: getDate(),
           miliTaskDate: Date.now(),
           isCompleted: false,
