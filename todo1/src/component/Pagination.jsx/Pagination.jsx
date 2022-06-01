@@ -14,11 +14,15 @@ const Pagination = (props) => {///
 
     return (
         <div>
+            <MyButton onClick={() => props.paginate(1)} button={'start'}
+                    currentbutton={props.currentPage}>start</MyButton>
             {pagesArray.map(number => (
                 <MyButton key={number}
                     onClick={() => props.paginate(number)} button={number}
                     currentbutton={props.currentPage}>{number}</MyButton>
             ))}
+            <MyButton onClick={() => props.paginate(pagesArray.length)} button={'end'}
+                    currentbutton={props.currentPage}>end</MyButton>
         </div>
     )
 }
