@@ -26,8 +26,6 @@ const InputTask = (props) => {
         setTaskText('');
         props.paginateForInput();
       }
-
-
     } else if (event.code === 'Escape') {
       setTaskText('');
     }

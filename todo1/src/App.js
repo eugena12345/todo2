@@ -26,16 +26,14 @@ function App() {
     { id: 8, taskText: 'zxc', taskDate: '20/4/2022', miliTaskDate: 1650450771000, isCompleted: false, },
   ])
   const [filtredTodoList, setFiltredTodoList] = useState(taskList);
-  const [currentPage, setCurretnPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [typeOfSorted, setTypeOfSorted] = useState({ typeSortedByDate: FIRST, typeSortedByStatus: ALL });
 
   useEffect(() => {
     setFiltredTodoList(taskList)
   }, [taskList])
 
-  useEffect(() => {
-    sort(typeOfSorted)
-  }, [typeOfSorted, taskList])
+
 
   const removeTask = (taskForRemove) => {
     setTaskList(taskList.filter(task => task.id !== taskForRemove.id))
@@ -46,25 +44,25 @@ function App() {
   const firstTaskIndex = lastTaskIndex - numberOfTaskOnPage;
   const currentTasks = filtredTodoList.slice(firstTaskIndex, lastTaskIndex);
   const paginate = (pageNumber) => {
-    setCurretnPage(pageNumber)//
+    setCurrentPage(pageNumber)
   }
 
   const paginateForInput = () => {
     if (typeOfSorted.typeSortedByDate === FIRST) {
       const page = Math.ceil((filtredTodoList.length + 1) / numberOfTaskOnPage)
-      setCurretnPage(page);
+      setCurrentPage(page);
     } else if (typeOfSorted.typeSortedByDate === LAST) {
-      setCurretnPage(1);
+      setCurrentPage(1);
     }
   }
 
-  const sort = (typeOfSorted) => {//
+  const sort = () => {
     switch (typeOfSorted.typeSortedByStatus) {
       case ALL: {
         if (typeOfSorted.typeSortedByDate === LAST) {
-          setTaskList([...taskList].sort((a, b) => b.miliTaskDate - a.miliTaskDate));
+          setFiltredTodoList([...taskList].sort((a, b) => b.miliTaskDate - a.miliTaskDate));
         } else if (typeOfSorted.typeSortedByDate === FIRST) {
-          setTaskList([...taskList].sort((a, b) => a.miliTaskDate - b.miliTaskDate));
+          setFiltredTodoList([...taskList].sort((a, b) => a.miliTaskDate - b.miliTaskDate));
         }
         return
       }
@@ -88,19 +86,24 @@ function App() {
 
   }
 
+  useEffect(() => {
+    sort()
+  }, [typeOfSorted, taskList])
+
   return (
     <div className={style.App}>
       <h1>ToDo</h1>
       <div className={style.topPanel}>
-        <InputTask setTaskList={setTaskList} taskList={taskList} paginateForInput={paginateForInput} />
-        <SortTask 
-        taskList={taskList} 
-        filtredTodoList={filtredTodoList} 
-        setTaskList={setTaskList}
-          setFiltredTodoList={setFiltredTodoList} 
-          setCurretnPage={setCurretnPage}
-          sort={sort} 
-          setTypeOfSorted={setTypeOfSorted} 
+        <InputTask setTaskList={setTaskList} taskList={taskList} paginateForInput={paginateForInput}
+          sort={sort} />
+        <SortTask
+          taskList={taskList}
+          filtredTodoList={filtredTodoList}
+          setTaskList={setTaskList}
+          setFiltredTodoList={setFiltredTodoList}
+          setCurretnPage={setCurrentPage}
+          sort={sort}
+          setTypeOfSorted={setTypeOfSorted}
           typeOfSorted={typeOfSorted} />
       </div>
       {taskList.length
@@ -110,7 +113,7 @@ function App() {
         : <div><h1>no tasks</h1>
           <img className={style.imgNoTask}
             src='https://img.freepik.com/free-vector/coffee-quotes-svg-design-vector_22345-1171.jpg?w=740'
-             /></div>
+          /></div>
       }
       {filtredTodoList.length > numberOfTaskOnPage &&
         <Pagination length={filtredTodoList.length} numberOfTaskOnPage={numberOfTaskOnPage}

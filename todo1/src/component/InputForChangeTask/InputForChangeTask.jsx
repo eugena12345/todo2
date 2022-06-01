@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import MyButton from "../Button/MyButton";
 import style from './../InputTask/InputTask.module.css';
 
 const InputForChangeTask = (props) => {
@@ -8,22 +7,20 @@ const InputForChangeTask = (props) => {
 
   const changeTaskText = (event) => {
     if (event.code === 'Enter') {
-      if (event.target.value) {
+      if (taskText) {
 
 
-        const newTaskList = [...props.taskList].filter((item) => {//
+        const newTaskList = [...props.taskList].filter((item) => {
           if (item.id === props.taskID) {
-            // const newItem = {...item}
-            // newItem.textValue = event.target.value;
-            // return newItem
+            item.taskText = taskText;
           }
-          return item
+          return item;
         })
         props.setTaskList(newTaskList);
-        props.setEditMode(!props.editMode)
+        props.setEditMode(false);
       }
     } else if (event.code === 'Escape') {
-      props.setEditMode(!props.editMode);//
+      props.setEditMode(false);
     }
   }
 
