@@ -1,27 +1,29 @@
 import React  from "react";
 import MyButton from "../../Button/MyButton";
-import style from './SortByDate.module.css';
 import { useState } from "react";
 
+const FIRST = 'first';
+const LAST = 'last';
+
 const SortByDate = (props) => {
-const [order, setOrder] = useState('first');
+const [order, setOrder] = useState(FIRST);
     
     const orderLast = () => {
-        props.setTypeOfSorted({ ...props.typeOfSorted, typeSortedByDate: 'last' });
-        setOrder('last');
+        props.setTypeOfSorted({ ...props.typeOfSorted, typeSortedByDate: LAST });
+        setOrder(LAST);
     }
 
     const orderFirst = () => {
-        props.setTypeOfSorted({ ...props.typeOfSorted, typeSortedByDate: 'first' });
-        setOrder('first');
+        props.setTypeOfSorted({ ...props.typeOfSorted, typeSortedByDate: FIRST });
+        setOrder(FIRST);
     }
 
     return (
         <div className='sortDatePanel'>
             Sort by date
-            <MyButton onClick={orderLast} button={'last'} currentbutton={order}
+            <MyButton onClick={orderLast} button={LAST} currentbutton={order}
             >⇧</MyButton>
-            <MyButton onClick={orderFirst} button={'first'} currentbutton={order}
+            <MyButton onClick={orderFirst} button={FIRST} currentbutton={order}
             >⇩</MyButton>
         </div>
     )
