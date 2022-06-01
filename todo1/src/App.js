@@ -4,6 +4,7 @@ import SortTask from './component/SortTask/SortTask';
 import TaskList from './component/Tasks/TaskList';
 import React, { useEffect, useState } from "react";
 import Pagination from './component/Pagination.jsx/Pagination';
+import style from './App.module.css';
 
 function App() {
 
@@ -100,9 +101,9 @@ function App() {
           setTaskList={setTaskList} taskList={taskList} setFiltredTodoList={setFiltredTodoList}
           currentTasks={currentTasks} />
         : <div><h1>no tasks</h1>
-          <img
+          <img className={style.imgNoTask}
             src='https://img.freepik.com/free-vector/coffee-quotes-svg-design-vector_22345-1171.jpg?w=740'
-            width={450} /></div>///
+             /></div>
       }
       {filtredTodoList.length > numberOfTaskOnPage &&
         <Pagination length={filtredTodoList.length} numberOfTaskOnPage={numberOfTaskOnPage}
