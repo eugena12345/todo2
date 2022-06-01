@@ -6,6 +6,13 @@ import React, { useEffect, useState } from "react";
 import Pagination from './component/Pagination.jsx/Pagination';
 import style from './App.module.css';
 
+const FIRST = 'first';
+const LAST = 'last';
+const ALL = 'all';
+const DONE = 'done';
+const UNDONE = 'undone';
+
+
 function App() {
 
   const [taskList, setTaskList] = useState([
@@ -20,7 +27,7 @@ function App() {
   ])
   const [filtredTodoList, setFiltredTodoList] = useState(taskList);
   const [currentPage, setCurretnPage] = useState(1);
-  const [typeOfSorted, setTypeOfSorted] = useState({ typeSortedByDate: 'first', typeSortedByStatus: 'all' }); //check
+  const [typeOfSorted, setTypeOfSorted] = useState({ typeSortedByDate: FIRST, typeSortedByStatus: ALL });
 
   useEffect(() => {
     setFiltredTodoList(taskList)
@@ -43,36 +50,36 @@ function App() {
   }
 
   const paginateForInput = () => {
-    if (typeOfSorted.typeSortedByDate === 'first') {
+    if (typeOfSorted.typeSortedByDate === FIRST) {
       const page = Math.ceil((filtredTodoList.length + 1) / numberOfTaskOnPage)
       setCurretnPage(page);
-    } else if (typeOfSorted.typeSortedByDate === 'last') {
+    } else if (typeOfSorted.typeSortedByDate === LAST) {
       setCurretnPage(1);
     }
   }
 
   const sort = (typeOfSorted) => {//
     switch (typeOfSorted.typeSortedByStatus) {
-      case 'all': {
-        if (typeOfSorted.typeSortedByDate === 'last') {
+      case ALL: {
+        if (typeOfSorted.typeSortedByDate === LAST) {
           setTaskList([...taskList].sort((a, b) => b.miliTaskDate - a.miliTaskDate));
-        } else if (typeOfSorted.typeSortedByDate === 'first') {
+        } else if (typeOfSorted.typeSortedByDate === FIRST) {
           setTaskList([...taskList].sort((a, b) => a.miliTaskDate - b.miliTaskDate));
         }
         return
       }
-      case 'done': {
-        if (typeOfSorted.typeSortedByDate === 'last') {
+      case DONE: {
+        if (typeOfSorted.typeSortedByDate === LAST) {
           setFiltredTodoList(taskList.filter(item => item.isCompleted === true).sort((a, b) => b.miliTaskDate - a.miliTaskDate));
-        } else if (typeOfSorted.typeSortedByDate === 'first') {
+        } else if (typeOfSorted.typeSortedByDate === FIRST) {
           setFiltredTodoList(taskList.filter(item => item.isCompleted === true).sort((a, b) => a.miliTaskDate - b.miliTaskDate));
         }
         return
       }
-      case 'undone': {
-        if (typeOfSorted.typeSortedByDate === 'last') {
+      case UNDONE: {
+        if (typeOfSorted.typeSortedByDate === LAST) {
           setFiltredTodoList(taskList.filter(item => item.isCompleted === false).sort((a, b) => b.miliTaskDate - a.miliTaskDate));
-        } else if (typeOfSorted.typeSortedByDate === 'first') {
+        } else if (typeOfSorted.typeSortedByDate === FIRST) {
           setFiltredTodoList(taskList.filter(item => item.isCompleted === false).sort((a, b) => a.miliTaskDate - b.miliTaskDate));
         }
         return
