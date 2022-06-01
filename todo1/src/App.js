@@ -41,6 +41,15 @@ function App() {
     setCurretnPage(pageNumber)//
   }
 
+  const paginateForInput = () => {
+    if (typeOfSorted.typeSortedByDate === 'first') {
+      const page = Math.ceil((filtredTodoList.length + 1) / numberOfTaskOnPage)
+      setCurretnPage(page);
+    } else if (typeOfSorted.typeSortedByDate === 'last') {
+      setCurretnPage(1);
+    }
+  }
+
   const sort = (typeOfSorted) => {//
     switch (typeOfSorted.typeSortedByStatus) {
       case 'all': {
@@ -75,7 +84,7 @@ function App() {
     <div className="App">
       <h1>ToDo</h1>
       <div className='topPanel'>
-        <InputTask setTaskList={setTaskList} taskList={taskList} />
+        <InputTask setTaskList={setTaskList} taskList={taskList} paginateForInput={paginateForInput} />
         <SortTask 
         taskList={taskList} 
         filtredTodoList={filtredTodoList} 

@@ -24,6 +24,7 @@ const InputTask = (props) => {
         };
         props.setTaskList([...props.taskList, newTask])
         setTaskText('');
+        props.paginateForInput();
       }
 
 
