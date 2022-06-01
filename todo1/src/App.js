@@ -89,9 +89,9 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className={style.App}>
       <h1>ToDo</h1>
-      <div className='topPanel'>
+      <div className={style.topPanel}>
         <InputTask setTaskList={setTaskList} taskList={taskList} paginateForInput={paginateForInput} />
         <SortTask 
         taskList={taskList} 
