@@ -1,12 +1,11 @@
 import React from "react";
 import MyButton from "../Button/MyButton";
-import style from './Pagination.module.css';
 
-const Pagination = (props) => {///
+const Pagination = ({length, numberOfTaskOnPage, paginate, currentPage }) => {
     let pagesArray = [];
     let pages = 1;
-    if (props.length) {
-        pages = Math.ceil(props.length / props.numberOfTaskOnPage);
+    if (length) {
+        pages = Math.ceil(length / numberOfTaskOnPage);
     }
     for (let i = 1; i <= pages; i++) {
         pagesArray.push(i);
@@ -14,15 +13,15 @@ const Pagination = (props) => {///
 
     return (
         <div>
-            <MyButton onClick={() => props.paginate(1)} button={'start'}
-                currentbutton={props.currentPage}>start</MyButton>
+            <MyButton onClick={() => paginate(1)} button={'start'}
+                currentbutton={currentPage}>start</MyButton>
             {pagesArray.map(number => (
                 <MyButton key={number}
-                    onClick={() => props.paginate(number)} button={number}
-                    currentbutton={props.currentPage}>{number}</MyButton>
+                    onClick={() => paginate(number)} button={number}
+                    currentbutton={currentPage}>{number}</MyButton>
             ))}
-            <MyButton onClick={() => props.paginate(pagesArray.length)} button={'end'}
-                currentbutton={props.currentPage}>end</MyButton>
+            <MyButton onClick={() => paginate(pagesArray.length)} button={'end'}
+                currentbutton={currentPage}>end</MyButton>
         </div>
     )
 }
