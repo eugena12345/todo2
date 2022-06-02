@@ -18,16 +18,16 @@ const Task = (props) => {
                     taskID={props.task.id}
                 />
                 : <div className={style.task}>
-                    <div className={style.leftSide} onDoubleClick={() => setEditMode(!editMode)}>///
+                    <div className={style.leftSide} onDoubleClick={() => setEditMode(true)}>
                         <div className={style.check}>
-                            <input type='checkbox' checked={isChecked(props.task.isCompleted)}///
+                            <input type='checkbox' checked={isChecked(props.task.isCompleted)}///чтобы отображать после перезагрузки страницы галочку
                                 onChange={() => props.changeCompleted(props.task)}
                             />
                         </div>
                         <div className={style.taskTexst}>{props.task.taskText}</div>
                     </div>
                     <div className={style.rightSide}>
-                        <div className='taskDate'>{props.task.taskDate}</div>
+                        <div >{props.task.taskDate}</div>
                         <div className={style.deleteTask}>
                             <img className={`${style['border-img']} ${bnnStyle['delete-button']}`}
                                 src={deleteImg} alt="delete" width="40px" height="40px"
