@@ -95,7 +95,8 @@ function App() {
       <h1>ToDo</h1>
       <div className={style.topPanel}>
         <InputTask setTaskList={setTaskList} taskList={taskList} paginateForInput={paginateForInput}
-          sort={sort} />
+           /> 
+           {/* sort={sort} */}
         <SortTask
           taskList={taskList}
           filtredTodoList={filtredTodoList}
