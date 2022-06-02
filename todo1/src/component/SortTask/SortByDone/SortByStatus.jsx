@@ -6,22 +6,22 @@ const ALL = 'all';
 const DONE = 'done';
 const UNDONE = 'undone';
 
-const SortByStatus = (props) => {
+const SortByStatus = ({typeOfSorted, setTypeOfSorted, setCurretnPage, }) => {
     const [order, setOrder] = useState(ALL);
 
     const orderUndone = () => {
-        props.setTypeOfSorted({ ...props.typeOfSorted, typeSortedByStatus: UNDONE })
+        setTypeOfSorted({ ...typeOfSorted, typeSortedByStatus: UNDONE })
         setOrder(UNDONE);
     };
     const orderDone = () => {
-        props.setTypeOfSorted({ ...props.typeOfSorted, typeSortedByStatus: DONE });
+        setTypeOfSorted({ ...typeOfSorted, typeSortedByStatus: DONE });
         setOrder(DONE);
-        props.setCurretnPage(1);
+        setCurretnPage(1);
     } 
     const orderAll = () => {
-        props.setTypeOfSorted({ ...props.typeOfSorted, typeSortedByStatus: ALL });
+        setTypeOfSorted({ ...typeOfSorted, typeSortedByStatus: ALL });
         setOrder(ALL);
-        props.setCurretnPage(1);
+        setCurretnPage(1);
     } 
 
     return (

@@ -5,16 +5,16 @@ import { useState } from "react";
 const FIRST = 'first';
 const LAST = 'last';
 
-const SortByDate = (props) => {
+const SortByDate = ({typeOfSorted, setTypeOfSorted, }) => {
 const [order, setOrder] = useState(FIRST);
     
     const orderLast = () => {
-        props.setTypeOfSorted({ ...props.typeOfSorted, typeSortedByDate: LAST });
+        setTypeOfSorted({ ...typeOfSorted, typeSortedByDate: LAST });
         setOrder(LAST);
     }
 
     const orderFirst = () => {
-        props.setTypeOfSorted({ ...props.typeOfSorted, typeSortedByDate: FIRST });
+        setTypeOfSorted({ ...typeOfSorted, typeSortedByDate: FIRST });
         setOrder(FIRST);
     }
 
