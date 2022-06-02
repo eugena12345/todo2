@@ -2,25 +2,24 @@ import React from "react";
 import { useState } from "react";
 import style from './../InputTask/InputTask.module.css';
 
-const InputForChangeTask = (props) => {
-  const [taskText, setTaskText] = useState(props.taskText);
+const InputForChangeTask = ({ previousTaskText, taskList, taskID, setTaskList, setEditMode }) => {
+  const [taskText, setTaskText] = useState(previousTaskText);
 
   const changeTaskText = (event) => {
     if (event.code === 'Enter') {
       if (taskText) {
 
-
-        const newTaskList = [...props.taskList].filter((item) => {
-          if (item.id === props.taskID) {
+        const newTaskList = [...taskList].filter((item) => {
+          if (item.id === taskID) {
             item.taskText = taskText;
           }
           return item;
         })
-        props.setTaskList(newTaskList);
-        props.setEditMode(false);
+        setTaskList(newTaskList);
+        setEditMode(false);
       }
     } else if (event.code === 'Escape') {
-      props.setEditMode(false);
+      setEditMode(false);
     }
   }
 
