@@ -5,10 +5,12 @@ import TaskList from './component/Tasks/TaskList';
 import React, { useEffect, useState } from "react";
 import Pagination from './component/Pagination.jsx/Pagination';
 import style from './App.module.css';
+import axios from 'axios';
+import API from './API/API.js'
 
 const FIRST = 'first';
 const LAST = 'last';
-const ALL = 'all';
+const ALL = ''; // у меня было 'all'.
 const DONE = 'done';
 const UNDONE = 'undone';
 
@@ -28,6 +30,7 @@ function App() {
   const [filtredTodoList, setFiltredTodoList] = useState(taskList);
   const [currentPage, setCurrentPage] = useState(1);
   const [typeOfSorted, setTypeOfSorted] = useState({ typeSortedByDate: FIRST, typeSortedByStatus: ALL });
+  const [userID, setUserID] = useState(1);
 
   useEffect(() => {
     setFiltredTodoList(taskList)
@@ -89,6 +92,24 @@ function App() {
   useEffect(() => {
     sort()
   }, [typeOfSorted, taskList])
+
+//   API.get(`tasks/${userID}?order=asc&pp=${numberOfTaskOnPage}&page=1`)
+// .then(response => console.log(response.data));
+
+API.get(`tasks/${userID}`, {
+  params: {
+    filterBy: typeOfSorted.typeSortedByStatus,
+    order: 'asc',
+    pp: numberOfTaskOnPage,
+    page: 1,
+  }
+})
+.then(response => {
+  console.log(response.data);
+  
+}
+  );
+
 
   return (
     <div className={style.App}>
