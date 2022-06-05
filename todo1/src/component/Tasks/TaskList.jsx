@@ -5,12 +5,12 @@ import style from './TaskList.module.css';
 
 
 
-const TaskList = ({taskList, setTaskList, currentTasks, removeTask}) => {
+const TaskList = ({taskList, setTaskList, filtredTodoList, removeTask}) => {
 
     const changeCompleted = (task) => {
         const newTaskList = [...taskList].filter((item) => {//
-            if (item.id === task.id) {
-                item.isCompleted = !item.isCompleted;
+            if (item.uuid === task.uuid) {
+                item.done = !item.done;
             }
             return item
         })
@@ -19,8 +19,8 @@ const TaskList = ({taskList, setTaskList, currentTasks, removeTask}) => {
 
     return (
         <div className={style.tasks}>
-            {currentTasks.map(task =>
-                <Task task={task} key={task.id} removeTask={removeTask}
+            {filtredTodoList.map(task =>
+                <Task task={task} key={task.uuid} removeTask={removeTask}
                     setTaskList={setTaskList} taskList={taskList}
                     changeCompleted={changeCompleted} />
             )}

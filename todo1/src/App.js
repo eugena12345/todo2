@@ -18,16 +18,18 @@ const UNDONE = 'undone';
 function App() {
 
   const [taskList, setTaskList] = useState([
-    { id: 1, taskText: 'Do something', taskDate: '10/4/2020', miliTaskDate: 1587292371000, isCompleted: false, },
-    { id: 2, taskText: 'Do more', taskDate: '10/4/2022', miliTaskDate: 1650364371000, isCompleted: false, },
-    { id: 3, taskText: 'Learn React', taskDate: '10/4/2021', miliTaskDate: 1618828371000, isCompleted: false, },
-    { id: 4, taskText: 'rty', taskDate: '20/4/2022', miliTaskDate: 1650450771000, isCompleted: false, },
-    { id: 5, taskText: 'cvb', taskDate: '10/4/2020', miliTaskDate: 1587292371000, isCompleted: false, },
-    { id: 6, taskText: 'jkl', taskDate: '10/4/2022', miliTaskDate: 1650364371000, isCompleted: false, },
-    { id: 7, taskText: 'qwe', taskDate: '10/4/2021', miliTaskDate: 1618828371000, isCompleted: false, },
-    { id: 8, taskText: 'zxc', taskDate: '20/4/2022', miliTaskDate: 1650450771000, isCompleted: false, },
+    // { uuid: 1, name: 'Do something', createdAt: '10/4/2020', miliTaskDate: 1587292371000, done: false, },
+    // {
+    //   createdAt: "2022-05-31T17:43:26.386Z",
+    //   done: false,
+    //   name: "12",
+    //   updatedAt: "2022-06-03T06:19:51.663Z",
+    //   userId: "a6a18306-2c6b-4597-899c-936ec8277661",
+    //   uuid: "bc5b3223-7b1d-40ee-9223-e6f17d992750",
+    // }
   ])
   const [filtredTodoList, setFiltredTodoList] = useState(taskList);
+  const [toDoLength, setToDoLength] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [typeOfSorted, setTypeOfSorted] = useState({ typeSortedByDate: FIRST, typeSortedByStatus: ALL });
   const [userID, setUserID] = useState(1);
@@ -45,7 +47,7 @@ function App() {
   const numberOfTaskOnPage = 5;
   const lastTaskIndex = currentPage * numberOfTaskOnPage;
   const firstTaskIndex = lastTaskIndex - numberOfTaskOnPage;
-  const currentTasks = filtredTodoList.slice(firstTaskIndex, lastTaskIndex);
+  //const currentTasks = filtredTodoList.slice(firstTaskIndex, lastTaskIndex);
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber)
   }
@@ -89,26 +91,33 @@ function App() {
 
   }
 
+  // useEffect(() => {
+  //   sort()
+  // }, [typeOfSorted, taskList])
+
+  //   API.get(`tasks/${userID}?order=asc&pp=${numberOfTaskOnPage}&page=1`)
+  // .then(response => console.log(response.data));
+
+
   useEffect(() => {
-    sort()
-  }, [typeOfSorted, taskList])
+    API.get(`tasks/${userID}`, {
+      params: {
+        filterBy: typeOfSorted.typeSortedByStatus,
+        order: 'asc',
+        pp: numberOfTaskOnPage,
+        page: 1,
+      }
+    })
+      .then((response) => {
+        console.log(response.data);
+        setTaskList(response.data.tasks);
+        setToDoLength(response.data.count);
+      })
+      .catch(err => alert(err));
+    }, [setTaskList])
+      
 
-//   API.get(`tasks/${userID}?order=asc&pp=${numberOfTaskOnPage}&page=1`)
-// .then(response => console.log(response.data));
-
-API.get(`tasks/${userID}`, {
-  params: {
-    filterBy: typeOfSorted.typeSortedByStatus,
-    order: 'asc',
-    pp: numberOfTaskOnPage,
-    page: 1,
-  }
-})
-.then(response => {
-  console.log(response.data);
-  
-}
-  );
+ 
 
 
   return (
@@ -127,14 +136,15 @@ API.get(`tasks/${userID}`, {
       {taskList.length
         ? <TaskList filtredTodoList={filtredTodoList} removeTask={removeTask}
           setTaskList={setTaskList} taskList={taskList} setFiltredTodoList={setFiltredTodoList}
-          currentTasks={currentTasks} />
+        // currentTasks={currentTasks} 
+        />
         : <div><h1>no tasks</h1>
           <img className={style.imgNoTask}
             src='https://img.freepik.com/free-vector/coffee-quotes-svg-design-vector_22345-1171.jpg?w=740'
           /></div>
       }
-      {filtredTodoList.length > numberOfTaskOnPage &&
-        <Pagination length={filtredTodoList.length} numberOfTaskOnPage={numberOfTaskOnPage}
+      {toDoLength > numberOfTaskOnPage &&
+        <Pagination length={toDoLength} numberOfTaskOnPage={numberOfTaskOnPage}
           paginate={paginate} currentPage={currentPage} />
       }
     </div>
