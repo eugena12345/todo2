@@ -17,32 +17,20 @@ const UNDONE = 'undone';
 
 function App() {
 
-  const [taskList, setTaskList] = useState([
-    // { uuid: 1, name: 'Do something', createdAt: '10/4/2020', miliTaskDate: 1587292371000, done: false, },
-    // {
-    //   createdAt: "2022-05-31T17:43:26.386Z",
-    //   done: false,
-    //   name: "12",
-    //   updatedAt: "2022-06-03T06:19:51.663Z",
-    //   userId: "a6a18306-2c6b-4597-899c-936ec8277661",
-    //   uuid: "bc5b3223-7b1d-40ee-9223-e6f17d992750",
-    // }
-  ])
+  const [taskList, setTaskList] = useState([])
   const [filtredTodoList, setFiltredTodoList] = useState(taskList);
   const [toDoLength, setToDoLength] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [typeOfSorted, setTypeOfSorted] = useState({ typeSortedByDate: FIRST, typeSortedByStatus: ALL });
-  const [userID, setUserID] = useState(1);
+  const [userID, setUserID] = useState(6);
 
-  useEffect(() => {
-    setFiltredTodoList(taskList)
-  }, [taskList])
+  // useEffect(() => {
+  //   setFiltredTodoList(taskList)
+  // }, [taskList]);
 
 
 
-  const removeTask = (taskForRemove) => {
-    setTaskList(taskList.filter(task => task.id !== taskForRemove.id))
-  }
+
 
   const numberOfTaskOnPage = 5;
   const lastTaskIndex = currentPage * numberOfTaskOnPage;
@@ -114,12 +102,30 @@ function App() {
         setToDoLength(response.data.count);
       })
       .catch(err => alert(err));
-    }, [setTaskList])
-      
+  }, [setTaskList])
 
- 
+  const createTask = async (taskText) => {
+    API.post(`task/${userID}`, {
+      name: taskText,
+    })
+      .then((response) => {
+        console.log(response.data);
+        setTaskList([...taskList, response.data]);
+        setToDoLength(toDoLength + 1);
+      })
+      .catch(err => alert(err));
+  }
 
+  const removeTask = async (taskForRemoveID) => {
+    API.delete(`task/${userID}/${taskForRemoveID}`)
+      .then((response) => {
+        console.log(response);
+        (response.status === 204) && setTaskList(taskList.filter(task => task.uuid !== taskForRemoveID));
+      })
+      .catch(err => alert(err));
+  }
 
+  console.log(taskList);
   return (
     <div className={style.App}>
       <h1>ToDo</h1>
@@ -127,7 +133,8 @@ function App() {
         <InputTask
           setTaskList={setTaskList}
           taskList={taskList}
-          paginateForInput={paginateForInput} />
+          paginateForInput={paginateForInput}
+          createTask={createTask} />
         <SortTask
           setCurretnPage={setCurrentPage}
           setTypeOfSorted={setTypeOfSorted}

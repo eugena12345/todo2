@@ -32,7 +32,7 @@ const Task = ({ task, setTaskList, taskList, changeCompleted, removeTask }) => {
                         <div className={style.deleteTask}>
                             <img className={`${style['border-img']} ${bnnStyle['delete-button']}`}
                                 src={deleteImg} alt="delete" width="40px" height="40px"
-                                onClick={() => removeTask(task)} />
+                                onClick={() => removeTask(task.uuid)} />
                         </div>
                     </div>
                 </div>}

@@ -19,7 +19,7 @@ const TaskList = ({taskList, setTaskList, filtredTodoList, removeTask}) => {
 
     return (
         <div className={style.tasks}>
-            {filtredTodoList.map(task =>
+            {taskList.map(task =>
                 <Task task={task} key={task.uuid} removeTask={removeTask}
                     setTaskList={setTaskList} taskList={taskList}
                     changeCompleted={changeCompleted} />

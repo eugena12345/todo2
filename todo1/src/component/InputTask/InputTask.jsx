@@ -3,28 +3,23 @@ import { useState } from "react";
 import MyButton from "../Button/MyButton";
 import style from './InputTask.module.css';
 
-const InputTask = ({taskList, setTaskList, paginateForInput}) => {
+const InputTask = ({ taskList, setTaskList, paginateForInput, createTask }) => {
   const [taskText, setTaskText] = useState('');
 
-  const getDate = (date = new Date()) => {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    return (`${day}/${month}/${year}`);
-  }
+  // // const getDate = (date = new Date()) => {
+  // //   const year = date.getFullYear();
+  // //   const month = date.getMonth() + 1;
+  // //   const day = date.getDate();
+  // //   return (`${day}/${month}/${year}`);
+  // }
+
+
   const addNewTask = (event) => {
     if (event.code === 'Enter') {
       if (taskText) {
-        const newTask = {
-          id: Date.now(),
-          taskText,
-          taskDate: getDate(),
-          miliTaskDate: Date.now(),
-          isCompleted: false,
-        };
-        setTaskList([...taskList, newTask])
+        createTask(taskText);
         setTaskText('');
-        paginateForInput();
+        // paginateForInput();
       }
     } else if (event.code === 'Escape') {
       setTaskText('');
@@ -33,15 +28,9 @@ const InputTask = ({taskList, setTaskList, paginateForInput}) => {
 
   const addNewTaskOnButtonClick = () => {
     if (taskText) {
-      const newTask = {
-        id: Date.now(),
-        taskText: taskText,
-        taskDate: getDate(),
-        miliTaskDate: Date.now(),
-        isCompleted: false,
-      };
-      setTaskList([...taskList, newTask])
-      setTaskText('');
+      createTask(taskText);
+        setTaskText('');
+        // paginateForInput();
     }
   }
 
