@@ -4,7 +4,7 @@ import bnnStyle from '../../Button/Button.module.css';
 import deleteImg from '../../../image/trash.jpg';
 import InputForChangeTask from "../../InputForChangeTask/InputForChangeTask";
 
-const Task = ({ task, setTaskList, taskList, changeCompleted, removeTask }) => {
+const Task = ({ task, setTaskList, taskList, changeDone, removeTask }) => {
 
     const isChecked = (isCompleted) => isCompleted === true ? 'checked' : false;///
     const [editMode, setEditMode] = useState(false);///
@@ -22,7 +22,7 @@ const Task = ({ task, setTaskList, taskList, changeCompleted, removeTask }) => {
                     <div className={style.leftSide} onDoubleClick={() => setEditMode(true)}>
                         <div className={style.check}>
                             <input type='checkbox' checked={isChecked(task.done)}///чтобы отображать после перезагрузки страницы галочку
-                                onChange={() => changeCompleted(task)}
+                                onChange={() => changeDone(task)}
                             />
                         </div>
                         <div className={style.taskTexst}>{task.name}</div>

@@ -125,7 +125,34 @@ function App() {
       .catch(err => alert(err));
   }
 
-  console.log(taskList);
+  const changeDone = async (taskForChange) => {
+    let checkboxValue;
+    console.log(taskForChange.done)
+    if (taskForChange.done) {
+      checkboxValue = false;
+    } else {
+      checkboxValue = true;
+    }
+    API.patch(`task/${userID}/${taskForChange.uuid}`, {
+      done: checkboxValue,
+    })
+      .then((response) => {
+        console.log(response.data);
+
+        const newTaskList = [...taskList].filter((item) => {//
+          if (item.uuid === taskForChange.uuid) {
+            item.done = !item.done;
+          }
+          return item
+        })
+        setTaskList(newTaskList);
+      })
+      .catch(err => alert(err));
+
+
+
+  }
+
   return (
     <div className={style.App}>
       <h1>ToDo</h1>
@@ -143,6 +170,7 @@ function App() {
       {taskList.length
         ? <TaskList filtredTodoList={filtredTodoList} removeTask={removeTask}
           setTaskList={setTaskList} taskList={taskList} setFiltredTodoList={setFiltredTodoList}
+          changeDone={changeDone}
         // currentTasks={currentTasks} 
         />
         : <div><h1>no tasks</h1>
