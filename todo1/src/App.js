@@ -7,6 +7,7 @@ import Pagination from './component/Pagination.jsx/Pagination';
 import style from './App.module.css';
 import axios from 'axios';
 import API from './API/API.js'
+import Loading from './Loading/Loading';
 
 const FIRST = 'first';
 const LAST = 'last';
@@ -23,6 +24,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [typeOfSorted, setTypeOfSorted] = useState({ typeSortedByDate: FIRST, typeSortedByStatus: ALL });
   const [userID, setUserID] = useState(6);
+  const [isLoading, setIsLoading] = useState(false);
 
   // useEffect(() => {
   //   setFiltredTodoList(taskList)
@@ -84,6 +86,7 @@ function App() {
   // }, [typeOfSorted, taskList])
 
   useEffect(() => {
+    setIsLoading(true);
     API.get(`tasks/${userID}`, {
       params: {
         filterBy: typeOfSorted.typeSortedByStatus,
@@ -95,25 +98,30 @@ function App() {
       .then((response) => {
         setTaskList(response.data.tasks);
         setToDoLength(response.data.count);
+        setIsLoading(false);
       })
       .catch(err => alert(err));
   }, [setTaskList])
 
   const createTask = async (taskText) => {
+    setIsLoading(true);
     API.post(`task/${userID}`, {
       name: taskText,
     })
       .then((response) => {
         setTaskList([...taskList, response.data]);
         setToDoLength(toDoLength + 1);
+        setIsLoading(false);
       })
       .catch(err => alert(err));
   }
 
   const removeTask = async (taskForRemoveID) => {
+    setIsLoading(true);
     API.delete(`task/${userID}/${taskForRemoveID}`)
       .then((response) => {
         (response.status === 204) && setTaskList(taskList.filter(task => task.uuid !== taskForRemoveID));
+        setIsLoading(false);
       })
       .catch(err => alert(err));
   }
@@ -125,6 +133,7 @@ function App() {
     } else {
       checkboxValue = true;
     }
+    setIsLoading(true);
     API.patch(`task/${userID}/${taskForChange.uuid}`, {
       done: checkboxValue,
     })
@@ -136,11 +145,13 @@ function App() {
           return item
         })
         setTaskList(newTaskList);
+        setIsLoading(false);
       })
       .catch(err => alert(err));
   }
 
   const changeTaskText = async (taskForChangeID, updatedTaskText) => {
+    setIsLoading(true);
     API.patch(`task/${userID}/${taskForChangeID}`, {
       name: updatedTaskText,
     })
@@ -152,6 +163,7 @@ function App() {
           return item
         })
         setTaskList(newTaskList);
+        setIsLoading(false);
       })
       .catch(err => alert(err));
   }
@@ -170,16 +182,18 @@ function App() {
           setTypeOfSorted={setTypeOfSorted}
           typeOfSorted={typeOfSorted} />
       </div>
-      {taskList.length
-        ? <TaskList filtredTodoList={filtredTodoList} removeTask={removeTask}
-          setTaskList={setTaskList} taskList={taskList} setFiltredTodoList={setFiltredTodoList}
-          changeDone={changeDone} changeTaskText={changeTaskText}
-        // currentTasks={currentTasks} 
-        />
-        : <div><h1>no tasks</h1>
-          <img className={style.imgNoTask}
-            src='https://img.freepik.com/free-vector/coffee-quotes-svg-design-vector_22345-1171.jpg?w=740'
-          /></div>
+      {isLoading
+        ? <Loading />
+        : taskList.length
+          ? <TaskList filtredTodoList={filtredTodoList} removeTask={removeTask}
+            setTaskList={setTaskList} taskList={taskList} setFiltredTodoList={setFiltredTodoList}
+            changeDone={changeDone} changeTaskText={changeTaskText}
+          // currentTasks={currentTasks} 
+          />
+          : <div><h1>no tasks</h1>
+            <img className={style.imgNoTask}
+              src='https://img.freepik.com/free-vector/coffee-quotes-svg-design-vector_22345-1171.jpg?w=740'
+            /></div>
       }
       {toDoLength > numberOfTaskOnPage &&
         <Pagination length={toDoLength} numberOfTaskOnPage={numberOfTaskOnPage}
