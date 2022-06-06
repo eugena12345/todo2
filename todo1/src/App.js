@@ -83,10 +83,6 @@ function App() {
   //   sort()
   // }, [typeOfSorted, taskList])
 
-  //   API.get(`tasks/${userID}?order=asc&pp=${numberOfTaskOnPage}&page=1`)
-  // .then(response => console.log(response.data));
-
-
   useEffect(() => {
     API.get(`tasks/${userID}`, {
       params: {
@@ -97,7 +93,6 @@ function App() {
       }
     })
       .then((response) => {
-        console.log(response.data);
         setTaskList(response.data.tasks);
         setToDoLength(response.data.count);
       })
@@ -109,7 +104,6 @@ function App() {
       name: taskText,
     })
       .then((response) => {
-        console.log(response.data);
         setTaskList([...taskList, response.data]);
         setToDoLength(toDoLength + 1);
       })
@@ -119,7 +113,6 @@ function App() {
   const removeTask = async (taskForRemoveID) => {
     API.delete(`task/${userID}/${taskForRemoveID}`)
       .then((response) => {
-        console.log(response);
         (response.status === 204) && setTaskList(taskList.filter(task => task.uuid !== taskForRemoveID));
       })
       .catch(err => alert(err));
@@ -127,7 +120,6 @@ function App() {
 
   const changeDone = async (taskForChange) => {
     let checkboxValue;
-    console.log(taskForChange.done)
     if (taskForChange.done) {
       checkboxValue = false;
     } else {
@@ -137,20 +129,31 @@ function App() {
       done: checkboxValue,
     })
       .then((response) => {
-        console.log(response.data);
-
         const newTaskList = [...taskList].filter((item) => {//
           if (item.uuid === taskForChange.uuid) {
-            item.done = !item.done;
+            item.done = response.data.done;
           }
           return item
         })
         setTaskList(newTaskList);
       })
       .catch(err => alert(err));
+  }
 
-
-
+  const changeTaskText = async (taskForChangeID, updatedTaskText) => {
+    API.patch(`task/${userID}/${taskForChangeID}`, {
+      name: updatedTaskText,
+    })
+      .then((response) => {
+        const newTaskList = [...taskList].filter((item) => {//
+          if (item.uuid === taskForChangeID) {
+            item.name = response.data.name;
+          }
+          return item
+        })
+        setTaskList(newTaskList);
+      })
+      .catch(err => alert(err));
   }
 
   return (
@@ -170,7 +173,7 @@ function App() {
       {taskList.length
         ? <TaskList filtredTodoList={filtredTodoList} removeTask={removeTask}
           setTaskList={setTaskList} taskList={taskList} setFiltredTodoList={setFiltredTodoList}
-          changeDone={changeDone}
+          changeDone={changeDone} changeTaskText={changeTaskText}
         // currentTasks={currentTasks} 
         />
         : <div><h1>no tasks</h1>

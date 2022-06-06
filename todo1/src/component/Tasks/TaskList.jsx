@@ -5,7 +5,7 @@ import style from './TaskList.module.css';
 
 
 
-const TaskList = ({taskList, setTaskList, filtredTodoList, removeTask, changeDone}) => {
+const TaskList = ({taskList, setTaskList, filtredTodoList, removeTask, changeDone, changeTaskText}) => {
 
     
 
@@ -14,7 +14,7 @@ const TaskList = ({taskList, setTaskList, filtredTodoList, removeTask, changeDon
             {taskList.map(task =>
                 <Task task={task} key={task.uuid} removeTask={removeTask}
                     setTaskList={setTaskList} taskList={taskList}
-                    changeDone={changeDone} />
+                    changeDone={changeDone} changeTaskText={changeTaskText} />
             )}
 
 
