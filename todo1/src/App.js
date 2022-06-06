@@ -5,11 +5,10 @@ import TaskList from './component/Tasks/TaskList';
 import React, { useEffect, useState } from "react";
 import Pagination from './component/Pagination.jsx/Pagination';
 import style from './App.module.css';
-import axios from 'axios';
 import API from './API/API.js'
 import Loading from './Loading/Loading';
 
-const FIRST = 'first';
+const FIRST = 'asc';
 const LAST = 'last';
 const ALL = ''; // у меня было 'all'.
 const DONE = 'done';
@@ -25,20 +24,33 @@ function App() {
   const [typeOfSorted, setTypeOfSorted] = useState({ typeSortedByDate: FIRST, typeSortedByStatus: ALL });
   const [userID, setUserID] = useState(6);
   const [isLoading, setIsLoading] = useState(false);
-
+  const numberOfTaskOnPage = 5;
   // useEffect(() => {
   //   setFiltredTodoList(taskList)
   // }, [taskList]);
 
 
-
-
-
-  const numberOfTaskOnPage = 5;
   const lastTaskIndex = currentPage * numberOfTaskOnPage;
   const firstTaskIndex = lastTaskIndex - numberOfTaskOnPage;
   //const currentTasks = filtredTodoList.slice(firstTaskIndex, lastTaskIndex);
   const paginate = (pageNumber) => {
+    setIsLoading(true);
+    API.get(`tasks/${userID}`, {
+      params: {
+        filterBy: typeOfSorted.typeSortedByStatus,
+        order: typeOfSorted.typeSortedByDate,
+        pp: numberOfTaskOnPage,
+        page: pageNumber,
+      }
+    })
+      .then((response) => {
+        setTaskList(response.data.tasks);
+        //setToDoLength(response.data.count);
+        setIsLoading(false);
+      })
+      .catch(err => alert(err));
+    
+    
     setCurrentPage(pageNumber)
   }
 
@@ -196,8 +208,10 @@ function App() {
             /></div>
       }
       {toDoLength > numberOfTaskOnPage &&
-        <Pagination length={toDoLength} numberOfTaskOnPage={numberOfTaskOnPage}
-          paginate={paginate} currentPage={currentPage} />
+        <Pagination length={toDoLength}
+          numberOfTaskOnPage={numberOfTaskOnPage}
+          paginate={paginate}
+          currentPage={currentPage} />
       }
     </div>
   );
