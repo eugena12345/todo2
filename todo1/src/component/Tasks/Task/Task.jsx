@@ -29,7 +29,7 @@ const Task = ({ task, setTaskList, taskList, changeDone, removeTask, changeTaskT
                         <div className={style.taskTexst}>{task.name}</div>
                     </div>
                     <div className={style.rightSide}>
-                        <div >{task.createdAt}</div>
+                        <div >{task.createdAt.slice(0, 10)}</div>
                         <div className={style.deleteTask}>
                             <img className={`${style['border-img']} ${bnnStyle['delete-button']}`}
                                 src={deleteImg} alt="delete" width="40px" height="40px"
