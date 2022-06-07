@@ -4,7 +4,7 @@ import bnnStyle from '../../Button/Button.module.css';
 import deleteImg from '../../../image/trash.jpg';
 import InputForChangeTask from "../../InputForChangeTask/InputForChangeTask";
 
-const Task = ({ task, setTaskList, taskList, changeDone, removeTask, changeTaskText }) => {
+const Task = ({ task, changeDone, removeTask, changeTaskText }) => {
 
     const isChecked = (isCompleted) => isCompleted === true ? 'checked' : false;///
     const [editMode, setEditMode] = useState(false);///
@@ -13,9 +13,7 @@ const Task = ({ task, setTaskList, taskList, changeDone, removeTask, changeTaskT
         <div >
             {editMode
                 ? <InputForChangeTask previousTaskText={task.name}
-                    taskList={taskList}
                     taskID={task.uuid}
-                    setTaskList={setTaskList}
                     setEditMode={setEditMode}
                     changeTaskText={changeTaskText}
                 />

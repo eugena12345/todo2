@@ -2,20 +2,22 @@ import React  from "react";
 import MyButton from "../../Button/MyButton";
 import { useState } from "react";
 
-const FIRST = 'first';
-const LAST = 'last';
+const FIRST = 'asc';
+const LAST = 'desc';
 
-const SortByDate = ({typeOfSorted, setTypeOfSorted, }) => {
+const SortByDate = ({typeOfSorted, setTypeOfSorted, getSortByDateTaskList}) => {
 const [order, setOrder] = useState(FIRST);
     
     const orderLast = () => {
         setTypeOfSorted({ ...typeOfSorted, typeSortedByDate: LAST });
         setOrder(LAST);
+        getSortByDateTaskList(LAST);
     }
 
     const orderFirst = () => {
         setTypeOfSorted({ ...typeOfSorted, typeSortedByDate: FIRST });
         setOrder(FIRST);
+        getSortByDateTaskList(FIRST);
     }
 
     return (

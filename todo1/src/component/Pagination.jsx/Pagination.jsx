@@ -1,13 +1,10 @@
 import React from "react";
 import MyButton from "../Button/MyButton";
 
-const Pagination = ({length, numberOfTaskOnPage, paginate, currentPage }) => {
+const Pagination = ({pageForPagination, paginate, currentPage }) => {
     let pagesArray = [];
-    let pages = 1;
-    if (length) {
-        pages = Math.ceil(length / numberOfTaskOnPage);
-    }
-    for (let i = 1; i <= pages; i++) {
+    const pages = pageForPagination;
+        for (let i = 1; i <= pages; i++) {
         pagesArray.push(i);
     }
 

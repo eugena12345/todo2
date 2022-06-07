@@ -9,30 +9,20 @@ import API from './API/API.js'
 import Loading from './Loading/Loading';
 
 const FIRST = 'asc';
-const LAST = 'last';
-const ALL = ''; // у меня было 'all'.
-const DONE = 'done';
-const UNDONE = 'undone';
-
+const LAST = 'desc';
+const ALL = '';
 
 function App() {
 
   const [taskList, setTaskList] = useState([])
-  const [filtredTodoList, setFiltredTodoList] = useState(taskList);
   const [toDoLength, setToDoLength] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [typeOfSorted, setTypeOfSorted] = useState({ typeSortedByDate: FIRST, typeSortedByStatus: ALL });
   const [userID, setUserID] = useState(6);
   const [isLoading, setIsLoading] = useState(false);
+  const [pageForPagination, setPageForPagination] = useState(1);
   const numberOfTaskOnPage = 5;
-  // useEffect(() => {
-  //   setFiltredTodoList(taskList)
-  // }, [taskList]);
 
-
-  const lastTaskIndex = currentPage * numberOfTaskOnPage;
-  const firstTaskIndex = lastTaskIndex - numberOfTaskOnPage;
-  //const currentTasks = filtredTodoList.slice(firstTaskIndex, lastTaskIndex);
   const paginate = (pageNumber) => {
     setIsLoading(true);
     API.get(`tasks/${userID}`, {
@@ -45,85 +35,59 @@ function App() {
     })
       .then((response) => {
         setTaskList(response.data.tasks);
-        //setToDoLength(response.data.count);
+        setToDoLength(response.data.count);
         setIsLoading(false);
       })
       .catch(err => alert(err));
-    
-    
+
+
     setCurrentPage(pageNumber)
   }
 
-  const paginateForInput = () => {
-    if (typeOfSorted.typeSortedByDate === FIRST) {
-      const page = Math.ceil((filtredTodoList.length + 1) / numberOfTaskOnPage)
-      setCurrentPage(page);
-    } else if (typeOfSorted.typeSortedByDate === LAST) {
-      setCurrentPage(1);
-    }
-  }
-
-  const sort = () => {
-    switch (typeOfSorted.typeSortedByStatus) {
-      case ALL: {
-        if (typeOfSorted.typeSortedByDate === LAST) {
-          setFiltredTodoList([...taskList].sort((a, b) => b.miliTaskDate - a.miliTaskDate));
-        } else if (typeOfSorted.typeSortedByDate === FIRST) {
-          setFiltredTodoList([...taskList].sort((a, b) => a.miliTaskDate - b.miliTaskDate));
-        }
-        return
-      }
-      case DONE: {
-        if (typeOfSorted.typeSortedByDate === LAST) {
-          setFiltredTodoList(taskList.filter(item => item.isCompleted === true).sort((a, b) => b.miliTaskDate - a.miliTaskDate));
-        } else if (typeOfSorted.typeSortedByDate === FIRST) {
-          setFiltredTodoList(taskList.filter(item => item.isCompleted === true).sort((a, b) => a.miliTaskDate - b.miliTaskDate));
-        }
-        return
-      }
-      case UNDONE: {
-        if (typeOfSorted.typeSortedByDate === LAST) {
-          setFiltredTodoList(taskList.filter(item => item.isCompleted === false).sort((a, b) => b.miliTaskDate - a.miliTaskDate));
-        } else if (typeOfSorted.typeSortedByDate === FIRST) {
-          setFiltredTodoList(taskList.filter(item => item.isCompleted === false).sort((a, b) => a.miliTaskDate - b.miliTaskDate));
-        }
-        return
-      }
-    }
-
-  }
-
-  // useEffect(() => {
-  //   sort()
-  // }, [typeOfSorted, taskList])
-
-  useEffect(() => {
+  const getTaskList = async () => {
     setIsLoading(true);
     API.get(`tasks/${userID}`, {
       params: {
         filterBy: typeOfSorted.typeSortedByStatus,
-        order: 'asc',
+        order: typeOfSorted.typeSortedByDate,
         pp: numberOfTaskOnPage,
-        page: 1,
+        page: currentPage,
       }
     })
       .then((response) => {
         setTaskList(response.data.tasks);
         setToDoLength(response.data.count);
+        setPageForPagination(Math.ceil(response.data.count / numberOfTaskOnPage));
         setIsLoading(false);
       })
       .catch(err => alert(err));
-  }, [setTaskList])
+  }
 
   const createTask = async (taskText) => {
     setIsLoading(true);
     API.post(`task/${userID}`, {
       name: taskText,
     })
-      .then((response) => {
-        setTaskList([...taskList, response.data]);
-        setToDoLength(toDoLength + 1);
-        setIsLoading(false);
+      .then(() => {
+        let page;
+        typeOfSorted.typeSortedByDate === FIRST
+          ? page = (Math.ceil((toDoLength + 1) / numberOfTaskOnPage))
+          : page = 1;
+        setCurrentPage(page);
+        API.get(`tasks/${userID}`, {
+          params: {
+            filterBy: typeOfSorted.typeSortedByStatus,
+            order: typeOfSorted.typeSortedByDate,
+            pp: numberOfTaskOnPage,
+            page: page,
+          }
+        })
+          .then((response) => {
+            console.log(response)
+            setTaskList(response.data.tasks);
+            setPageForPagination(Math.ceil(response.data.count / numberOfTaskOnPage));
+            setIsLoading(false);
+          })
       })
       .catch(err => alert(err));
   }
@@ -180,27 +144,68 @@ function App() {
       .catch(err => alert(err));
   }
 
+  const getSortByDateTaskList = async (typeSortedByDate) => {
+    setIsLoading(true);
+    API.get(`tasks/${userID}`, {
+      params: {
+        filterBy: typeOfSorted.typeSortedByStatus,
+        order: typeSortedByDate,
+        pp: numberOfTaskOnPage,
+        page: currentPage,
+      }
+    })
+      .then((response) => {
+        setTaskList(response.data.tasks);
+        setToDoLength(response.data.count);
+        setIsLoading(false);
+      })
+      .catch(err => alert(err));
+  }
+
+  const getSortByStatusTaskList = async (status) => {
+    setCurrentPage(1) //почему не дальше в функции не видит 1, а видит предыдущую если передать в запрос сurrentPage  
+    setIsLoading(true);
+    API.get(`tasks/${userID}`, {
+      params: {
+        filterBy: status,
+        order: typeOfSorted.typeSortedByDate,
+        pp: numberOfTaskOnPage,
+        page: 1,
+      }
+    })
+      .then((response) => {
+        setTaskList(response.data.tasks);
+        setToDoLength(response.data.count);
+        setPageForPagination(Math.ceil(response.data.count / numberOfTaskOnPage));
+        setIsLoading(false);
+      })
+      .catch(err => alert(err));
+  }
+
+
+  useEffect(() => {
+    getTaskList();
+  }, [setTaskList])
+
   return (
     <div className={style.App}>
       <h1>ToDo</h1>
       <div className={style.topPanel}>
         <InputTask
-          setTaskList={setTaskList}
-          taskList={taskList}
-          paginateForInput={paginateForInput}
           createTask={createTask} />
         <SortTask
           setCurretnPage={setCurrentPage}
           setTypeOfSorted={setTypeOfSorted}
-          typeOfSorted={typeOfSorted} />
+          typeOfSorted={typeOfSorted}
+          getSortByDateTaskList={getSortByDateTaskList}
+          getSortByStatusTaskList={getSortByStatusTaskList}
+        />
       </div>
       {isLoading
         ? <Loading />
         : taskList.length
-          ? <TaskList filtredTodoList={filtredTodoList} removeTask={removeTask}
-            setTaskList={setTaskList} taskList={taskList} setFiltredTodoList={setFiltredTodoList}
+          ? <TaskList taskList={taskList} removeTask={removeTask}
             changeDone={changeDone} changeTaskText={changeTaskText}
-          // currentTasks={currentTasks} 
           />
           : <div><h1>no tasks</h1>
             <img className={style.imgNoTask}
@@ -208,8 +213,8 @@ function App() {
             /></div>
       }
       {toDoLength > numberOfTaskOnPage &&
-        <Pagination length={toDoLength}
-          numberOfTaskOnPage={numberOfTaskOnPage}
+        <Pagination
+          pageForPagination={pageForPagination}
           paginate={paginate}
           currentPage={currentPage} />
       }

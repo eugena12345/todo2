@@ -2,10 +2,8 @@ import React from "react";
 import { useState } from "react";
 import style from './../InputTask/InputTask.module.css';
 
-const InputForChangeTask = ({ previousTaskText, taskList, taskID, setTaskList, setEditMode, changeTaskText }) => {
+const InputForChangeTask = ({ previousTaskText, taskID, setEditMode, changeTaskText }) => {
   const [taskText, setTaskText] = useState(previousTaskText);
-
-
 
   const updateTaskText = (event) => {
     if (event.code === 'Enter') {

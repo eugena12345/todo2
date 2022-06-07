@@ -3,7 +3,7 @@ import { useState } from "react";
 import MyButton from "../Button/MyButton";
 import style from './InputTask.module.css';
 
-const InputTask = ({ taskList, setTaskList, paginateForInput, createTask }) => {
+const InputTask = ({ createTask }) => {
   const [taskText, setTaskText] = useState('');
 
   // // const getDate = (date = new Date()) => {
@@ -19,7 +19,6 @@ const InputTask = ({ taskList, setTaskList, paginateForInput, createTask }) => {
       if (taskText) {
         createTask(taskText);
         setTaskText('');
-        // paginateForInput();
       }
     } else if (event.code === 'Escape') {
       setTaskText('');
@@ -29,8 +28,7 @@ const InputTask = ({ taskList, setTaskList, paginateForInput, createTask }) => {
   const addNewTaskOnButtonClick = () => {
     if (taskText) {
       createTask(taskText);
-        setTaskText('');
-        // paginateForInput();
+      setTaskText('');
     }
   }
 
