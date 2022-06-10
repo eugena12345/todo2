@@ -96,7 +96,12 @@ function App() {
     setIsLoading(true);
     API.delete(`task/${userID}/${taskForRemoveID}`)
       .then((response) => {
-        (response.status === 204) && setTaskList(taskList.filter(task => task.uuid !== taskForRemoveID));
+        if (response.status === 204) {
+          getTaskList();
+          if (taskList.length <= 1) {
+            paginate(currentPage - 1)//подумать и над этим
+          }
+        }
         setIsLoading(false);
       })
       .catch(err => alert(err));
@@ -132,9 +137,11 @@ function App() {
       name: updatedTaskText,
     })
       .then((response) => {
-        const newTaskList = [...taskList].filter((item) => {//
+        const newTaskList = taskList.filter((item) => {
           if (item.uuid === taskForChangeID) {
-            item.name = response.data.name;
+            const itemCopy = { ...item }
+            itemCopy.name = response.data.name;
+            return itemCopy;
           }
           return item
         })
@@ -163,7 +170,7 @@ function App() {
   }
 
   const getSortByStatusTaskList = async (status) => {
-    setCurrentPage(1) //почему не дальше в функции не видит 1, а видит предыдущую если передать в запрос сurrentPage  
+    setCurrentPage(1)
     setIsLoading(true);
     API.get(`tasks/${userID}`, {
       params: {
